@@ -27,7 +27,7 @@ const Footer: React.FC = () => {
             </p>
             
             <div className="flex space-x-4">
-              <a href="#" className="p-2 bg-ncrypt-blue/10 rounded-full text-ncrypt-blue hover:bg-ncrypt-blue/20 transition-colors">
+              <a href="https://github.com/Ajayrx/ncrypt-vote-future" className="p-2 bg-ncrypt-blue/10 rounded-full text-ncrypt-blue hover:bg-ncrypt-blue/20 transition-colors">
                 <Github size={20} />
               </a>
               <a href="#" className="p-2 bg-ncrypt-blue/10 rounded-full text-ncrypt-blue hover:bg-ncrypt-blue/20 transition-colors">
@@ -91,9 +91,8 @@ const Footer: React.FC = () => {
             </a>
             
             <div className="mt-6 text-sm text-white/50">
-              <p>contact@projectncrypt.com</p>
-              <p>Team Mango Labs, Innovation Center</p>
-              <p>San Francisco, CA</p>
+              <p>contact@ajay0i0know@gmail.com</p>
+              <p>Team Mango Labs, India</p>
             </div>
           </div>
         </div>
@@ -115,7 +114,7 @@ const Footer: React.FC = () => {
               Security
             </a>
             <div className="text-white/50">
-              <span className="text-ncrypt-blue">Powered by:</span> AI + Cybersecurity
+              <span className="text-ncrypt-blue">Powered by:</span> Mango Ai
             </div>
           </div>
         </div>

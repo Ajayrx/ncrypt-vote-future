@@ -1,6 +1,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useToast } from '@/hooks/use-toast';
+import { Button } from "@/components/ui/button";
+import { CircleArrowUpIcon } from "lucide-react";
 
 const DemoSection: React.FC = () => {
   const [cardType, setCardType] = useState<'real' | 'fake'>('real');
@@ -115,6 +117,19 @@ const DemoSection: React.FC = () => {
     setVerified(null);
     setFingerprint(false);
     setProgress(0);
+  };
+  
+  // Go to government services section
+  const goToGovServices = () => {
+    const govServicesSection = document.getElementById('gov-services');
+    if (govServicesSection) {
+      govServicesSection.scrollIntoView({ behavior: 'smooth' });
+    }
+    toast({
+      title: "Redirecting",
+      description: "Taking you to the government services demo.",
+      duration: 3000,
+    });
   };
 
   return (
@@ -393,6 +408,17 @@ const DemoSection: React.FC = () => {
                     {verified === true ? 'Granted' : verified === false ? 'Denied' : 'Pending'}
                   </span>
                 </div>
+              </div>
+              
+              {/* Government Services Button */}
+              <div className="mt-8 flex justify-center">
+                <Button 
+                  onClick={goToGovServices}
+                  className="neo-button group flex items-center gap-2"
+                >
+                  Explore Government Services
+                  <CircleArrowUpIcon className="w-4 h-4 transition-transform group-hover:-translate-y-1" />
+                </Button>
               </div>
             </div>
           </div>

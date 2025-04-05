@@ -4,12 +4,72 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/h
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { BanknoteIcon, HospitalIcon, ShoppingBasketIcon, IdCardIcon, CircleArrowDownIcon } from "lucide-react";
+import { BanknoteIcon, HospitalIcon, ShoppingBasketIcon, IdCardIcon, CircleArrowDownIcon, UsersIcon, CircleArrowUpIcon } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+// User profiles for different cards
+const userProfiles = [
+  {
+    id: 'user1',
+    name: 'Arjun Kumar',
+    cardId: 'NCR-7788945',
+    expiryDate: '04/28',
+    age: 36,
+    rationCardId: 'RCT-9001',
+    bloodGroup: 'B+',
+    healthBalance: '₹18,000',
+    recentClaim: '₹2,000 - Diagnostic Tests',
+    recentClaimDate: 'February 2025',
+    pensionAge: 60,
+    pensionId: 'PCT-7788',
+    pensionAmount: '₹3,000',
+    pensionDate: '1st April 2025',
+    rationItems: ['Wheat', 'Rice', 'Cooking Oil', 'Sugar'],
+    nextDelivery: '10th April 2025'
+  },
+  {
+    id: 'user2',
+    name: 'Priya Sharma',
+    cardId: 'NCR-6645278',
+    expiryDate: '07/27',
+    age: 29,
+    rationCardId: 'RCT-5432',
+    bloodGroup: 'A+',
+    healthBalance: '₹24,500',
+    recentClaim: '₹3,500 - Medicine',
+    recentClaimDate: 'March 2025',
+    pensionAge: 62,
+    pensionId: 'PCT-6543',
+    pensionAmount: '₹3,200',
+    pensionDate: '1st April 2025',
+    rationItems: ['Rice', 'Wheat', 'Sugar', 'Pulses'],
+    nextDelivery: '15th April 2025'
+  },
+  {
+    id: 'user3',
+    name: 'Rahul Singh',
+    cardId: 'NCR-9902456',
+    expiryDate: '11/26',
+    age: 42,
+    rationCardId: 'RCT-7754',
+    bloodGroup: 'O+',
+    healthBalance: '₹9,800',
+    recentClaim: '₹5,200 - Surgery',
+    recentClaimDate: 'January 2025',
+    pensionAge: 65,
+    pensionId: 'PCT-8932',
+    pensionAmount: '₹3,500',
+    pensionDate: '1st April 2025',
+    rationItems: ['Wheat', 'Rice', 'Cooking Oil', 'Sugar', 'Pulses'],
+    nextDelivery: '8th April 2025'
+  }
+];
 
 const GovServicesSection: React.FC = () => {
   const [cardActive, setCardActive] = useState(false);
   const [activeTerminal, setActiveTerminal] = useState<string | null>(null);
   const [audioEnabled, setAudioEnabled] = useState(true);
+  const [selectedUser, setSelectedUser] = useState(userProfiles[0]);
   const beepSoundRef = useRef<HTMLAudioElement | null>(null);
   const { toast } = useToast();
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -113,6 +173,24 @@ const GovServicesSection: React.FC = () => {
     });
   };
 
+  // Change user card
+  const changeUser = (userId: string) => {
+    // Reset state
+    setCardActive(false);
+    setActiveTerminal(null);
+    
+    // Find and set the selected user
+    const user = userProfiles.find(u => u.id === userId);
+    if (user) {
+      setSelectedUser(user);
+      toast({
+        title: "User Changed",
+        description: `Switched to ${user.name}'s card.`,
+        duration: 2000,
+      });
+    }
+  };
+
   return (
     <section id="gov-services" ref={sectionRef} className="py-24 relative overflow-hidden">
       {/* Background Elements */}
@@ -160,6 +238,27 @@ const GovServicesSection: React.FC = () => {
             className="appear-animate cyberpunk-card p-6 md:p-10"
             style={{ transitionDelay: '100ms' }}
           >
+            {/* User Selection Tabs */}
+            <div className="mb-8">
+              <h3 className="text-lg font-semibold mb-4 text-center">Select User Card</h3>
+              <Tabs defaultValue="user1" className="w-full" onValueChange={(value) => changeUser(value)}>
+                <TabsList className="grid grid-cols-3 w-full bg-ncrypt-dark-blue/50">
+                  {userProfiles.map((user) => (
+                    <TabsTrigger 
+                      key={user.id} 
+                      value={user.id}
+                      className="data-[state=active]:bg-ncrypt-blue/20 data-[state=active]:text-white"
+                    >
+                      <div className="flex items-center gap-2">
+                        <UsersIcon className="w-4 h-4" />
+                        <span>{user.name}</span>
+                      </div>
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+              </Tabs>
+            </div>
+            
             {/* NFC Card Display */}
             <div className="mb-10 flex justify-center">
               <div
@@ -199,10 +298,10 @@ const GovServicesSection: React.FC = () => {
                 
                 {/* Card Info */}
                 <div className="absolute bottom-4 left-4 right-4 text-left">
-                  <p className="text-ncrypt-blue font-mono text-sm mb-1">Arjun Kumar</p>
+                  <p className="text-ncrypt-blue font-mono text-sm mb-1">{selectedUser.name}</p>
                   <div className="flex items-center justify-between">
-                    <p className="text-white/80 font-mono text-xs">ID: NCR-7788945</p>
-                    <p className="text-white/80 font-mono text-xs">04/28</p>
+                    <p className="text-white/80 font-mono text-xs">ID: {selectedUser.cardId}</p>
+                    <p className="text-white/80 font-mono text-xs">{selectedUser.expiryDate}</p>
                   </div>
                 </div>
                 
@@ -257,6 +356,7 @@ const GovServicesSection: React.FC = () => {
                 <HoverCardContent 
                   className="w-80 bg-gradient-to-br from-ncrypt-dark-blue to-ncrypt-dark border border-ncrypt-blue/40 shadow-lg shadow-ncrypt-blue/20 text-white"
                   align="center"
+                  side="top"
                 >
                   <div className="p-2">
                     <div className="flex items-center space-x-2 mb-4">
@@ -266,29 +366,28 @@ const GovServicesSection: React.FC = () => {
                     <div className="space-y-2 mb-4">
                       <div className="flex justify-between">
                         <span className="text-white/70 text-sm">Name:</span>
-                        <span className="font-medium">Arjun Kumar</span>
+                        <span className="font-medium">{selectedUser.name}</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-white/70 text-sm">Age:</span>
-                        <span className="font-medium">36</span>
+                        <span className="font-medium">{selectedUser.age}</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-white/70 text-sm">Ration Card ID:</span>
-                        <span className="font-mono text-sm">RCT-9001</span>
+                        <span className="font-mono text-sm">{selectedUser.rationCardId}</span>
                       </div>
                     </div>
                     <div className="pt-3 border-t border-white/10">
                       <h5 className="text-sm font-medium mb-2">Eligible Items:</h5>
                       <div className="flex flex-wrap gap-2">
-                        <span className="px-2 py-1 bg-ncrypt-blue/20 rounded-md text-xs">Wheat</span>
-                        <span className="px-2 py-1 bg-ncrypt-blue/20 rounded-md text-xs">Rice</span>
-                        <span className="px-2 py-1 bg-ncrypt-blue/20 rounded-md text-xs">Cooking Oil</span>
-                        <span className="px-2 py-1 bg-ncrypt-blue/20 rounded-md text-xs">Sugar</span>
+                        {selectedUser.rationItems.map((item, index) => (
+                          <span key={index} className="px-2 py-1 bg-ncrypt-blue/20 rounded-md text-xs">{item}</span>
+                        ))}
                       </div>
                     </div>
                     <div className="mt-3 flex justify-between items-center pt-2 border-t border-white/10">
                       <span className="text-white/70 text-sm">Next Delivery:</span>
-                      <span className="font-medium text-ncrypt-blue">10th April 2025</span>
+                      <span className="font-medium text-ncrypt-blue">{selectedUser.nextDelivery}</span>
                     </div>
                   </div>
                 </HoverCardContent>
@@ -326,6 +425,7 @@ const GovServicesSection: React.FC = () => {
                 <HoverCardContent 
                   className="w-80 bg-gradient-to-br from-ncrypt-dark-blue to-ncrypt-dark border border-ncrypt-blue/40 shadow-lg shadow-ncrypt-blue/20 text-white"
                   align="center"
+                  side="top"
                 >
                   <div className="p-2">
                     <div className="flex items-center space-x-2 mb-4">
@@ -335,28 +435,28 @@ const GovServicesSection: React.FC = () => {
                     <div className="space-y-2 mb-4">
                       <div className="flex justify-between">
                         <span className="text-white/70 text-sm">Name:</span>
-                        <span className="font-medium">Arjun Kumar</span>
+                        <span className="font-medium">{selectedUser.name}</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-white/70 text-sm">Age:</span>
-                        <span className="font-medium">36</span>
+                        <span className="font-medium">{selectedUser.age}</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-white/70 text-sm">Blood Group:</span>
-                        <span className="font-medium">B+</span>
+                        <span className="font-medium">{selectedUser.bloodGroup}</span>
                       </div>
                     </div>
                     <div className="pt-3 border-t border-white/10">
                       <div className="flex justify-between">
                         <span className="text-white/70 text-sm">Health Card Balance:</span>
-                        <span className="font-medium text-ncrypt-blue">₹18,000</span>
+                        <span className="font-medium text-ncrypt-blue">{selectedUser.healthBalance}</span>
                       </div>
                     </div>
                     <div className="mt-3 flex flex-col gap-1 pt-2 border-t border-white/10">
                       <div className="text-white/70 text-sm">Recent Claim:</div>
                       <div className="bg-ncrypt-blue/10 p-2 rounded-md">
-                        <div className="text-sm font-medium">₹2,000 - Diagnostic Tests</div>
-                        <div className="text-xs text-white/70">February 2025</div>
+                        <div className="text-sm font-medium">{selectedUser.recentClaim}</div>
+                        <div className="text-xs text-white/70">{selectedUser.recentClaimDate}</div>
                       </div>
                     </div>
                   </div>
@@ -395,6 +495,7 @@ const GovServicesSection: React.FC = () => {
                 <HoverCardContent 
                   className="w-80 bg-gradient-to-br from-ncrypt-dark-blue to-ncrypt-dark border border-ncrypt-blue/40 shadow-lg shadow-ncrypt-blue/20 text-white"
                   align="center"
+                  side="top"
                 >
                   <div className="p-2">
                     <div className="flex items-center space-x-2 mb-4">
@@ -404,26 +505,26 @@ const GovServicesSection: React.FC = () => {
                     <div className="space-y-2 mb-4">
                       <div className="flex justify-between">
                         <span className="text-white/70 text-sm">Name:</span>
-                        <span className="font-medium">Arjun Kumar</span>
+                        <span className="font-medium">{selectedUser.name}</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-white/70 text-sm">Age:</span>
-                        <span className="font-medium">60</span>
+                        <span className="font-medium">{selectedUser.pensionAge}</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-white/70 text-sm">Pension Account ID:</span>
-                        <span className="font-mono text-sm">PCT-7788</span>
+                        <span className="font-mono text-sm">{selectedUser.pensionId}</span>
                       </div>
                     </div>
                     <div className="pt-3 border-t border-white/10">
                       <div className="flex justify-between">
                         <span className="text-white/70 text-sm">Monthly Pension:</span>
-                        <span className="font-medium text-ncrypt-blue">₹3,000</span>
+                        <span className="font-medium text-ncrypt-blue">{selectedUser.pensionAmount}</span>
                       </div>
                     </div>
                     <div className="mt-3 flex justify-between items-center pt-2 border-t border-white/10">
                       <span className="text-white/70 text-sm">Last Payout:</span>
-                      <span className="font-medium">1st April 2025</span>
+                      <span className="font-medium">{selectedUser.pensionDate}</span>
                     </div>
                   </div>
                 </HoverCardContent>

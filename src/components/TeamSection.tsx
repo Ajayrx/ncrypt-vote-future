@@ -65,7 +65,7 @@ const TeamSection: React.FC = () => {
       id: 3,
       name: "Meghali Dutta",
       role: "UI/UX Designer",
-      image: "/team/meg.png",
+      image: "/team/meg.jpeg",
       bio: "SDE Intern @ Coincent.ai | SWOC- contributor | Skilled in Full stack web development",
       delay: 300,
       github: "https://github.com/Meghali54",

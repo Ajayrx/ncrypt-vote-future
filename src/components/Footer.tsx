@@ -121,7 +121,7 @@ const Footer: React.FC = () => {
           </div>
         </div>
         
-        {/* Join Our Team Section - Enhanced */}
+        {/* Join Our Team Section - Enhanced with tooltips */}
         <div className="mt-12 pt-8 border-t border-ncrypt-blue/10">
           <div className="bg-ncrypt-blue/10 rounded-xl p-6 flex flex-col md:flex-row items-center justify-between">
             <div className="mb-4 md:mb-0 text-center md:text-left">

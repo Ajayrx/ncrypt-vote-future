@@ -1,6 +1,7 @@
 
 import React from 'react';
-import { Github, Mail, Linkedin, Twitter } from 'lucide-react';
+import { Github, Mail, Linkedin, Twitter, ExternalLink, Users } from 'lucide-react';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -27,16 +28,16 @@ const Footer: React.FC = () => {
             </p>
             
             <div className="flex space-x-4">
-              <a href="https://github.com/Ajayrx/ncrypt-vote-future" className="p-2 bg-ncrypt-blue/10 rounded-full text-ncrypt-blue hover:bg-ncrypt-blue/20 transition-colors">
+              <a href="https://github.com/Ajayrx/ncrypt-vote-future" className="p-2 bg-ncrypt-blue/10 rounded-full text-ncrypt-blue hover:bg-ncrypt-blue/20 transition-colors" aria-label="GitHub">
                 <Github size={20} />
               </a>
-              <a href="#" className="p-2 bg-ncrypt-blue/10 rounded-full text-ncrypt-blue hover:bg-ncrypt-blue/20 transition-colors">
+              <a href="#" className="p-2 bg-ncrypt-blue/10 rounded-full text-ncrypt-blue hover:bg-ncrypt-blue/20 transition-colors" aria-label="Twitter">
                 <Twitter size={20} />
               </a>
-              <a href="#" className="p-2 bg-ncrypt-blue/10 rounded-full text-ncrypt-blue hover:bg-ncrypt-blue/20 transition-colors">
+              <a href="https://linkedin.com/in/ajaybala" className="p-2 bg-ncrypt-blue/10 rounded-full text-ncrypt-blue hover:bg-ncrypt-blue/20 transition-colors" aria-label="LinkedIn">
                 <Linkedin size={20} />
               </a>
-              <a href="mailto:contact@projectncrypt.com" className="p-2 bg-ncrypt-blue/10 rounded-full text-ncrypt-blue hover:bg-ncrypt-blue/20 transition-colors">
+              <a href="mailto:contact@projectncrypt.com" className="p-2 bg-ncrypt-blue/10 rounded-full text-ncrypt-blue hover:bg-ncrypt-blue/20 transition-colors" aria-label="Email">
                 <Mail size={20} />
               </a>
             </div>
@@ -91,7 +92,8 @@ const Footer: React.FC = () => {
             </a>
             
             <div className="mt-6 text-sm text-white/50">
-              <p>contact@ajay0i0know@gmail.com</p>
+              <p>Email: ajay0i0know@gmail.com</p>
+              <p>LinkedIn: <a href="https://linkedin.com/in/ajaybala" className="text-ncrypt-blue hover:underline">Ajay Bala</a></p>
               <p>Team Mango Labs, India</p>
             </div>
           </div>
@@ -115,6 +117,55 @@ const Footer: React.FC = () => {
             </a>
             <div className="text-white/50">
               <span className="text-ncrypt-blue">Powered by:</span> Mango Ai
+            </div>
+          </div>
+        </div>
+        
+        {/* Join Our Team Section - Enhanced */}
+        <div className="mt-12 pt-8 border-t border-ncrypt-blue/10">
+          <div className="bg-ncrypt-blue/10 rounded-xl p-6 flex flex-col md:flex-row items-center justify-between">
+            <div className="mb-4 md:mb-0 text-center md:text-left">
+              <h3 className="text-xl font-bold mb-2 text-white">Join Our Team</h3>
+              <p className="text-white/70 max-w-md">
+                We're looking for talented individuals passionate about secure digital identity and blockchain technology.
+              </p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <a 
+                      href="https://forms.gle/cXHnq1JzXgGu7Dt76" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="neo-button inline-flex items-center"
+                    >
+                      <Users className="mr-2" size={18} /> Join Our Team
+                    </a>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom" className="bg-ncrypt-dark-blue text-white border border-ncrypt-blue/30">
+                    Submit your application
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+              
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <a 
+                      href="https://github.com/Ajayrx/ncrypt-vote-future" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="bg-ncrypt-dark-blue/60 hover:bg-ncrypt-dark-blue/80 text-white py-2 px-4 rounded-md flex items-center justify-center border border-ncrypt-blue/30 transition-all"
+                    >
+                      <ExternalLink className="mr-2" size={18} /> Learn More
+                    </a>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom" className="bg-ncrypt-dark-blue text-white border border-ncrypt-blue/30">
+                    Visit our GitHub for project details
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </div>
           </div>
         </div>

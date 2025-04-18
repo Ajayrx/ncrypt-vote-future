@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { Card, CardContent } from "@/components/ui/card";
@@ -327,38 +326,42 @@ const GovServicesSection: React.FC = () => {
             
             {/* Service Terminals */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-4">
-              {/* Ration Center Terminal - Fixed to stay visible when clicked */}
+              {/* Ration Center Terminal */}
               <div className="relative">
-                <Popover open={activeTerminal === 'ration'} onOpenChange={(open) => !open && setActiveTerminal(null)}>
-                  <PopoverTrigger asChild>
-                    <Card
-                      ref={(el) => addToRefs(el, 2)} 
-                      className={`appear-animate cursor-pointer transition-all duration-300 ${
-                        activeTerminal === 'ration'
-                          ? 'bg-gradient-to-br from-ncrypt-dark-blue to-ncrypt-dark border-ncrypt-blue shadow-lg shadow-ncrypt-blue/30'
-                          : 'bg-muted/20 hover:bg-muted/30 border-white/10'
-                      }`}
-                      onClick={() => handleTerminalInteraction('ration')}
-                      style={{ transitionDelay: '200ms' }}
-                    >
-                      <CardContent className="p-6 flex flex-col items-center gap-4">
-                        <div className={`p-4 rounded-full ${activeTerminal === 'ration' ? 'bg-ncrypt-blue/20' : 'bg-white/5'}`}>
-                          <ShoppingBasketIcon className={`w-8 h-8 ${activeTerminal === 'ration' ? 'text-ncrypt-blue' : 'text-white/70'}`} />
-                        </div>
-                        <div className="text-center">
-                          <h3 className="text-xl font-semibold mb-1">Ration Center</h3>
-                          <p className="text-sm text-white/60">Public Distribution System</p>
-                        </div>
-                        <div className={`w-full h-1 mt-2 rounded-full overflow-hidden ${activeTerminal === 'ration' ? 'bg-ncrypt-dark-blue' : 'bg-white/10'}`}>
-                          {activeTerminal === 'ration' && (
-                            <div className="h-full bg-ncrypt-blue" style={{ width: '100%', animation: 'pulse 2s infinite' }}></div>
-                          )}
-                        </div>
-                      </CardContent>
-                    </Card>
+                <Popover open={activeTerminal === 'ration'} onOpenChange={(open) => {
+                  if (!open) setActiveTerminal(null);
+                }}>
+                  <PopoverTrigger className="w-full" asChild>
+                    <div className="w-full">
+                      <Card
+                        ref={(el) => addToRefs(el, 2)} 
+                        className={`appear-animate cursor-pointer transition-all duration-300 ${
+                          activeTerminal === 'ration'
+                            ? 'bg-gradient-to-br from-ncrypt-dark-blue to-ncrypt-dark border-ncrypt-blue shadow-lg shadow-ncrypt-blue/30'
+                            : 'bg-muted/20 hover:bg-muted/30 border-white/10'
+                        }`}
+                        onClick={() => handleTerminalInteraction('ration')}
+                        style={{ transitionDelay: '200ms' }}
+                      >
+                        <CardContent className="p-6 flex flex-col items-center gap-4">
+                          <div className={`p-4 rounded-full ${activeTerminal === 'ration' ? 'bg-ncrypt-blue/20' : 'bg-white/5'}`}>
+                            <ShoppingBasketIcon className={`w-8 h-8 ${activeTerminal === 'ration' ? 'text-ncrypt-blue' : 'text-white/70'}`} />
+                          </div>
+                          <div className="text-center">
+                            <h3 className="text-xl font-semibold mb-1">Ration Center</h3>
+                            <p className="text-sm text-white/60">Public Distribution System</p>
+                          </div>
+                          <div className={`w-full h-1 mt-2 rounded-full overflow-hidden ${activeTerminal === 'ration' ? 'bg-ncrypt-dark-blue' : 'bg-white/10'}`}>
+                            {activeTerminal === 'ration' && (
+                              <div className="h-full bg-ncrypt-blue" style={{ width: '100%', animation: 'pulse 2s infinite' }}></div>
+                            )}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
                   </PopoverTrigger>
                   <PopoverContent 
-                    className="w-80 bg-gradient-to-br from-ncrypt-dark-blue to-ncrypt-dark border border-ncrypt-blue/40 shadow-lg shadow-ncrypt-blue/20 text-white"
+                    className="w-80 bg-gradient-to-br from-ncrypt-dark-blue to-ncrypt-dark border border-ncrypt-blue/40 shadow-lg shadow-ncrypt-blue/20 text-white z-50"
                     align="center"
                     side="top"
                     sideOffset={5}
@@ -399,38 +402,42 @@ const GovServicesSection: React.FC = () => {
                 </Popover>
               </div>
 
-              {/* Hospital Terminal - Fixed to stay visible when clicked */}
+              {/* Hospital Terminal */}
               <div className="relative">
-                <Popover open={activeTerminal === 'hospital'} onOpenChange={(open) => !open && setActiveTerminal(null)}>
-                  <PopoverTrigger asChild>
-                    <Card 
-                      ref={(el) => addToRefs(el, 3)}
-                      className={`appear-animate cursor-pointer transition-all duration-300 ${
-                        activeTerminal === 'hospital'
-                          ? 'bg-gradient-to-br from-ncrypt-dark-blue to-ncrypt-dark border-ncrypt-blue shadow-lg shadow-ncrypt-blue/30'
-                          : 'bg-muted/20 hover:bg-muted/30 border-white/10'
-                      }`}
-                      onClick={() => handleTerminalInteraction('hospital')}
-                      style={{ transitionDelay: '300ms' }}
-                    >
-                      <CardContent className="p-6 flex flex-col items-center gap-4">
-                        <div className={`p-4 rounded-full ${activeTerminal === 'hospital' ? 'bg-ncrypt-blue/20' : 'bg-white/5'}`}>
-                          <HospitalIcon className={`w-8 h-8 ${activeTerminal === 'hospital' ? 'text-ncrypt-blue' : 'text-white/70'}`} />
-                        </div>
-                        <div className="text-center">
-                          <h3 className="text-xl font-semibold mb-1">Health Hospital</h3>
-                          <p className="text-sm text-white/60">Government Medical Services</p>
-                        </div>
-                        <div className={`w-full h-1 mt-2 rounded-full overflow-hidden ${activeTerminal === 'hospital' ? 'bg-ncrypt-dark-blue' : 'bg-white/10'}`}>
-                          {activeTerminal === 'hospital' && (
-                            <div className="h-full bg-ncrypt-blue" style={{ width: '100%', animation: 'pulse 2s infinite' }}></div>
-                          )}
-                        </div>
-                      </CardContent>
-                    </Card>
+                <Popover open={activeTerminal === 'hospital'} onOpenChange={(open) => {
+                  if (!open) setActiveTerminal(null);
+                }}>
+                  <PopoverTrigger className="w-full" asChild>
+                    <div className="w-full">
+                      <Card 
+                        ref={(el) => addToRefs(el, 3)}
+                        className={`appear-animate cursor-pointer transition-all duration-300 ${
+                          activeTerminal === 'hospital'
+                            ? 'bg-gradient-to-br from-ncrypt-dark-blue to-ncrypt-dark border-ncrypt-blue shadow-lg shadow-ncrypt-blue/30'
+                            : 'bg-muted/20 hover:bg-muted/30 border-white/10'
+                        }`}
+                        onClick={() => handleTerminalInteraction('hospital')}
+                        style={{ transitionDelay: '300ms' }}
+                      >
+                        <CardContent className="p-6 flex flex-col items-center gap-4">
+                          <div className={`p-4 rounded-full ${activeTerminal === 'hospital' ? 'bg-ncrypt-blue/20' : 'bg-white/5'}`}>
+                            <HospitalIcon className={`w-8 h-8 ${activeTerminal === 'hospital' ? 'text-ncrypt-blue' : 'text-white/70'}`} />
+                          </div>
+                          <div className="text-center">
+                            <h3 className="text-xl font-semibold mb-1">Health Hospital</h3>
+                            <p className="text-sm text-white/60">Government Medical Services</p>
+                          </div>
+                          <div className={`w-full h-1 mt-2 rounded-full overflow-hidden ${activeTerminal === 'hospital' ? 'bg-ncrypt-dark-blue' : 'bg-white/10'}`}>
+                            {activeTerminal === 'hospital' && (
+                              <div className="h-full bg-ncrypt-blue" style={{ width: '100%', animation: 'pulse 2s infinite' }}></div>
+                            )}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
                   </PopoverTrigger>
                   <PopoverContent 
-                    className="w-80 bg-gradient-to-br from-ncrypt-dark-blue to-ncrypt-dark border border-ncrypt-blue/40 shadow-lg shadow-ncrypt-blue/20 text-white"
+                    className="w-80 bg-gradient-to-br from-ncrypt-dark-blue to-ncrypt-dark border border-ncrypt-blue/40 shadow-lg shadow-ncrypt-blue/20 text-white z-50"
                     align="center"
                     side="top"
                     sideOffset={5}
@@ -470,87 +477,3 @@ const GovServicesSection: React.FC = () => {
                     </div>
                   </PopoverContent>
                 </Popover>
-              </div>
-
-              {/* Pension Terminal - Fixed to stay visible when clicked */}
-              <div className="relative">
-                <Popover open={activeTerminal === 'pension'} onOpenChange={(open) => !open && setActiveTerminal(null)}>
-                  <PopoverTrigger asChild>
-                    <Card 
-                      ref={(el) => addToRefs(el, 4)}
-                      className={`appear-animate cursor-pointer transition-all duration-300 ${
-                        activeTerminal === 'pension'
-                          ? 'bg-gradient-to-br from-ncrypt-dark-blue to-ncrypt-dark border-ncrypt-blue shadow-lg shadow-ncrypt-blue/30'
-                          : 'bg-muted/20 hover:bg-muted/30 border-white/10'
-                      }`}
-                      onClick={() => handleTerminalInteraction('pension')}
-                      style={{ transitionDelay: '400ms' }}
-                    >
-                      <CardContent className="p-6 flex flex-col items-center gap-4">
-                        <div className={`p-4 rounded-full ${activeTerminal === 'pension' ? 'bg-ncrypt-blue/20' : 'bg-white/5'}`}>
-                          <BanknoteIcon className={`w-8 h-8 ${activeTerminal === 'pension' ? 'text-ncrypt-blue' : 'text-white/70'}`} />
-                        </div>
-                        <div className="text-center">
-                          <h3 className="text-xl font-semibold mb-1">Pension Center</h3>
-                          <p className="text-sm text-white/60">Government Pension System</p>
-                        </div>
-                        <div className={`w-full h-1 mt-2 rounded-full overflow-hidden ${activeTerminal === 'pension' ? 'bg-ncrypt-dark-blue' : 'bg-white/10'}`}>
-                          {activeTerminal === 'pension' && (
-                            <div className="h-full bg-ncrypt-blue" style={{ width: '100%', animation: 'pulse 2s infinite' }}></div>
-                          )}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </PopoverTrigger>
-                  <PopoverContent 
-                    className="w-80 bg-gradient-to-br from-ncrypt-dark-blue to-ncrypt-dark border border-ncrypt-blue/40 shadow-lg shadow-ncrypt-blue/20 text-white"
-                    align="center"
-                    side="top"
-                    sideOffset={5}
-                  >
-                    <div className="p-2">
-                      <div className="flex items-center space-x-2 mb-4">
-                        <IdCardIcon className="w-5 h-5 text-ncrypt-blue" />
-                        <h4 className="font-semibold">Pension Details</h4>
-                      </div>
-                      <div className="space-y-2 mb-4">
-                        <div className="flex justify-between">
-                          <span className="text-white/70 text-sm">Name:</span>
-                          <span className="font-medium">{selectedUser.name}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-white/70 text-sm">Age:</span>
-                          <span className="font-medium">{selectedUser.age}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-white/70 text-sm">Pension ID:</span>
-                          <span className="font-mono text-sm">{selectedUser.pensionId}</span>
-                        </div>
-                      </div>
-                      <div className="pt-3 border-t border-white/10">
-                        <div className="flex justify-between">
-                          <span className="text-white/70 text-sm">Monthly Amount:</span>
-                          <span className="font-medium text-ncrypt-blue">{selectedUser.pensionAmount}</span>
-                        </div>
-                        <div className="flex justify-between mt-2">
-                          <span className="text-white/70 text-sm">Retirement Age:</span>
-                          <span className="font-medium">{selectedUser.pensionAge}</span>
-                        </div>
-                      </div>
-                      <div className="mt-3 flex justify-between items-center pt-2 border-t border-white/10">
-                        <span className="text-white/70 text-sm">Next Payment:</span>
-                        <span className="font-medium text-ncrypt-blue">{selectedUser.pensionDate}</span>
-                      </div>
-                    </div>
-                  </PopoverContent>
-                </Popover>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-export default GovServicesSection;

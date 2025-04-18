@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { Card, CardContent } from "@/components/ui/card";
@@ -477,3 +478,105 @@ const GovServicesSection: React.FC = () => {
                     </div>
                   </PopoverContent>
                 </Popover>
+              </div>
+              
+              {/* Pension Terminal */}
+              <div className="relative">
+                <Popover open={activeTerminal === 'pension'} onOpenChange={(open) => {
+                  if (!open) setActiveTerminal(null);
+                }}>
+                  <PopoverTrigger className="w-full" asChild>
+                    <div className="w-full">
+                      <Card 
+                        ref={(el) => addToRefs(el, 4)}
+                        className={`appear-animate cursor-pointer transition-all duration-300 ${
+                          activeTerminal === 'pension'
+                            ? 'bg-gradient-to-br from-ncrypt-dark-blue to-ncrypt-dark border-ncrypt-blue shadow-lg shadow-ncrypt-blue/30'
+                            : 'bg-muted/20 hover:bg-muted/30 border-white/10'
+                        }`}
+                        onClick={() => handleTerminalInteraction('pension')}
+                        style={{ transitionDelay: '400ms' }}
+                      >
+                        <CardContent className="p-6 flex flex-col items-center gap-4">
+                          <div className={`p-4 rounded-full ${activeTerminal === 'pension' ? 'bg-ncrypt-blue/20' : 'bg-white/5'}`}>
+                            <BanknoteIcon className={`w-8 h-8 ${activeTerminal === 'pension' ? 'text-ncrypt-blue' : 'text-white/70'}`} />
+                          </div>
+                          <div className="text-center">
+                            <h3 className="text-xl font-semibold mb-1">Pension Center</h3>
+                            <p className="text-sm text-white/60">Senior Citizen Benefits</p>
+                          </div>
+                          <div className={`w-full h-1 mt-2 rounded-full overflow-hidden ${activeTerminal === 'pension' ? 'bg-ncrypt-dark-blue' : 'bg-white/10'}`}>
+                            {activeTerminal === 'pension' && (
+                              <div className="h-full bg-ncrypt-blue" style={{ width: '100%', animation: 'pulse 2s infinite' }}></div>
+                            )}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </PopoverTrigger>
+                  <PopoverContent 
+                    className="w-80 bg-gradient-to-br from-ncrypt-dark-blue to-ncrypt-dark border border-ncrypt-blue/40 shadow-lg shadow-ncrypt-blue/20 text-white z-50"
+                    align="center"
+                    side="top"
+                    sideOffset={5}
+                  >
+                    <div className="p-2">
+                      <div className="flex items-center space-x-2 mb-4">
+                        <IdCardIcon className="w-5 h-5 text-ncrypt-blue" />
+                        <h4 className="font-semibold">Pension Card Details</h4>
+                      </div>
+                      <div className="space-y-2 mb-4">
+                        <div className="flex justify-between">
+                          <span className="text-white/70 text-sm">Name:</span>
+                          <span className="font-medium">{selectedUser.name}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-white/70 text-sm">Age:</span>
+                          <span className="font-medium">{selectedUser.age}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-white/70 text-sm">Pension ID:</span>
+                          <span className="font-mono text-sm">{selectedUser.pensionId}</span>
+                        </div>
+                      </div>
+                      <div className="pt-3 border-t border-white/10">
+                        <div className="flex justify-between">
+                          <span className="text-white/70 text-sm">Pension Amount:</span>
+                          <span className="font-medium text-ncrypt-blue">{selectedUser.pensionAmount}</span>
+                        </div>
+                      </div>
+                      <div className="mt-3 flex flex-col gap-1 pt-2 border-t border-white/10">
+                        <div className="flex justify-between">
+                          <span className="text-white/70 text-sm">Next Payment:</span>
+                          <span className="text-sm">{selectedUser.pensionDate}</span>
+                        </div>
+                        <div className="flex justify-between mt-2">
+                          <span className="text-white/70 text-sm">Pension Age:</span>
+                          <span className="text-sm">{selectedUser.pensionAge} years</span>
+                        </div>
+                      </div>
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              </div>
+            </div>
+            
+            {/* Demo Link Button */}
+            <div className="mt-12 text-center">
+              <Button 
+                onClick={goToVotingDemo} 
+                className="bg-ncrypt-blue hover:bg-ncrypt-blue/80 text-white font-medium"
+              >
+                <CircleArrowDownIcon className="w-4 h-4" />
+                Go to Voting Verification Demo
+              </Button>
+              <p className="text-sm text-white/60 mt-2">See how the same identity verification works for voting</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default GovServicesSection;

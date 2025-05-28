@@ -4,15 +4,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { 
-  Calendar, 
-  Clock, 
   ExternalLink, 
   Github, 
-  FileText, 
   Video, 
   Link as LinkIcon,
   Presentation,
-  Brain
+  FileText
 } from 'lucide-react';
 
 const PrototypeSubmissions = () => {
@@ -51,20 +48,6 @@ const PrototypeSubmissions = () => {
       description: 'Share your updated GitHub repository',
       icon: <Github className="w-5 h-5" />,
       action: () => handleSectionClick('github-repo')
-    },
-    {
-      id: 'google-tech',
-      title: 'Google Technologies',
-      description: 'List the Google technologies used',
-      icon: <FileText className="w-5 h-5" />,
-      action: () => handleSectionClick('google-tech')
-    },
-    {
-      id: 'ai-tools',
-      title: 'Google AI Tools',
-      description: 'Mention the Google AI tools integrated',
-      icon: <Brain className="w-5 h-5" />,
-      action: () => handleSectionClick('ai-tools')
     }
   ];
 
@@ -78,42 +61,15 @@ const PrototypeSubmissions = () => {
       <div className="section-container relative z-10">
         <div className="text-center max-w-4xl mx-auto mb-16">
           <h2 className="section-heading">
-            Prototype <span className="text-ncrypt-blue">Submissions</span>
+            NFC <span className="text-ncrypt-blue">Prototype</span>
           </h2>
           <p className="text-lg text-white/80 mb-8">
             Challenge: Revolutionizing Voting with Faster and Secure Automated Verification
           </p>
-          
-          {/* Countdown Timer */}
-          <Card className="bg-gradient-to-br from-ncrypt-dark-blue/50 to-ncrypt-dark/50 border-ncrypt-blue/30 mb-8">
-            <CardHeader>
-              <CardTitle className="text-center text-ncrypt-blue flex items-center justify-center gap-2">
-                <Clock className="w-5 h-5" />
-                MODULE CLOSING IN
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-white mb-4">11d 22h 37m</div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                  <div className="flex items-center justify-center gap-2">
-                    <Calendar className="w-4 h-4 text-ncrypt-cyan" />
-                    <span className="text-white/70">Starting:</span>
-                    <span className="text-white">17/05/2025 12:00 AM (IST)</span>
-                  </div>
-                  <div className="flex items-center justify-center gap-2">
-                    <Calendar className="w-4 h-4 text-ncrypt-cyan" />
-                    <span className="text-white/70">Ending:</span>
-                    <span className="text-white">09/06/2025 11:59 PM (IST)</span>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
         </div>
 
         {/* Submission Categories */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto mb-16">
           {submissions.map((submission) => (
             <Card 
               key={submission.id}
@@ -121,18 +77,18 @@ const PrototypeSubmissions = () => {
               onClick={submission.action}
             >
               <CardContent className="p-6">
-                <div className="flex items-start gap-4">
+                <div className="flex flex-col items-center text-center gap-4">
                   <div className="p-3 rounded-lg bg-ncrypt-blue/20 group-hover:bg-ncrypt-blue/30 transition-colors">
                     {submission.icon}
                   </div>
-                  <div className="flex-1">
+                  <div>
                     <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-ncrypt-blue transition-colors">
                       {submission.title}
                     </h3>
                     <p className="text-sm text-white/70 mb-4">
                       {submission.description}
                     </p>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center justify-center gap-2">
                       <Badge variant="secondary" className="bg-ncrypt-dark-blue/50 text-white">
                         Required
                       </Badge>
@@ -145,23 +101,43 @@ const PrototypeSubmissions = () => {
           ))}
         </div>
 
-        {/* Additional Info */}
-        <div className="mt-16 text-center">
-          <Card className="bg-gradient-to-br from-ncrypt-dark-blue/30 to-ncrypt-dark/30 border-ncrypt-cyan/30 max-w-2xl mx-auto">
+        {/* NFC Voting Project Article */}
+        <div className="mt-16">
+          <Card className="bg-gradient-to-br from-ncrypt-dark-blue/30 to-ncrypt-dark/30 border-ncrypt-cyan/30 max-w-4xl mx-auto">
+            <CardHeader>
+              <CardTitle className="text-center text-ncrypt-blue flex items-center justify-center gap-2">
+                <FileText className="w-5 h-5" />
+                Project Ncrypt: NFC Voting Revolution
+              </CardTitle>
+            </CardHeader>
             <CardContent className="p-6">
-              <h3 className="text-xl font-semibold text-white mb-4">
-                Prototype Description
-              </h3>
-              <p className="text-white/80 text-sm mb-6">
-                Write a brief description of your prototype (max 100 words)
-              </p>
-              <Button 
-                onClick={() => handleSectionClick('description')}
-                className="bg-gradient-to-r from-ncrypt-blue to-ncrypt-cyan hover:shadow-lg hover:shadow-ncrypt-blue/40 transition-all"
-              >
-                Add Description
-                <ExternalLink className="w-4 h-4 ml-2" />
-              </Button>
+              <div className="prose prose-invert max-w-none">
+                <p className="text-white/90 text-base mb-4 leading-relaxed">
+                  Project Ncrypt represents a groundbreaking advancement in electoral technology, leveraging Near Field Communication (NFC) to create a seamless, secure, and efficient voting experience. Our innovative system addresses the critical challenges of modern democracy by eliminating traditional voting bottlenecks while maintaining the highest standards of security and transparency.
+                </p>
+                
+                <p className="text-white/90 text-base mb-4 leading-relaxed">
+                  At its core, the NFC voting prototype utilizes encrypted digital identity verification, enabling voters to authenticate themselves instantly through a simple tap of their NFC-enabled device or card. This revolutionary approach reduces voting time from minutes to seconds, significantly improving voter turnout and reducing queue times at polling stations.
+                </p>
+                
+                <p className="text-white/90 text-base mb-4 leading-relaxed">
+                  The system integrates advanced cryptographic protocols, biometric verification, and blockchain technology to ensure vote integrity while maintaining voter anonymity. Each vote is encrypted end-to-end, creating an immutable audit trail that enhances public trust in the electoral process.
+                </p>
+                
+                <p className="text-white/90 text-base leading-relaxed">
+                  Beyond voting, Project Ncrypt extends to comprehensive government service integration, allowing citizens to access healthcare, ration distribution, pension services, and other public benefits through the same secure NFC infrastructure, creating a unified digital governance ecosystem.
+                </p>
+              </div>
+              
+              <div className="mt-6 text-center">
+                <Button 
+                  onClick={() => handleSectionClick('learn-more')}
+                  className="bg-gradient-to-r from-ncrypt-blue to-ncrypt-cyan hover:shadow-lg hover:shadow-ncrypt-blue/40 transition-all"
+                >
+                  Learn More About Our Technology
+                  <ExternalLink className="w-4 h-4 ml-2" />
+                </Button>
+              </div>
             </CardContent>
           </Card>
         </div>

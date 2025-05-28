@@ -4,10 +4,8 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/h
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { BanknoteIcon, HospitalIcon, ShoppingBasketIcon, IdCardIcon, CircleArrowDownIcon, UsersIcon } from "lucide-react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { BanknoteIcon, HospitalIcon, ShoppingBasketIcon, IdCardIcon, CircleArrowDownIcon, UsersIcon, CheckCircle } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 // User profiles for different cards
 const userProfiles = [
@@ -27,7 +25,8 @@ const userProfiles = [
     pensionAmount: '₹3,000',
     pensionDate: '1st April 2025',
     rationItems: ['Wheat', 'Rice', 'Cooking Oil', 'Sugar'],
-    nextDelivery: '10th April 2025'
+    nextDelivery: '10th April 2025',
+    avatar: '👨‍💼'
   },
   {
     id: 'user2',
@@ -45,7 +44,8 @@ const userProfiles = [
     pensionAmount: '₹3,200',
     pensionDate: '1st April 2025',
     rationItems: ['Rice', 'Wheat', 'Sugar', 'Pulses'],
-    nextDelivery: '15th April 2025'
+    nextDelivery: '15th April 2025',
+    avatar: '👩‍💼'
   },
   {
     id: 'user3',
@@ -63,7 +63,8 @@ const userProfiles = [
     pensionAmount: '₹3,500',
     pensionDate: '1st April 2025',
     rationItems: ['Wheat', 'Rice', 'Cooking Oil', 'Sugar', 'Pulses'],
-    nextDelivery: '8th April 2025'
+    nextDelivery: '8th April 2025',
+    avatar: '👨‍🔧'
   }
 ];
 
@@ -113,7 +114,7 @@ const GovServicesSection: React.FC = () => {
     if (!audioEnabled) return;
     
     if (!beepSoundRef.current) {
-      beepSoundRef.current = new Audio("data:audio/wav;base64,//uQRAAAAWMSLwUIYAAsYkXgoQwAEaYLWfkWgAI0wWs/ItAAAGDgYtAgAyN+QWaAAihwMWm4G8QQRDiMcCBcH3Cc+CDv/7xA4Tvh9Rz/y8QADBwMWgQAZG/ILNAARQ4GLTcDeIIIhxGOBAuD7hOfBB3/94gcJ3w+o5/5eIAIAAAVwWgQAVQ2ORaIQwEMAJiDg95G4nQL7mQVWI6GwRcfsZAcsKkJvxgxEjzFUgfHoSQ9Qq7KNwqHwuB13MA4a1q/DmBrHgPcmjiGoh//EwC5nGPEmS4RcfkVKOhJf+WOgoxJclFz3kgn//dBA+ya1GhurNn8zb//9NNutNuhz31f////9vt///z+IdAEAAAK4LQIAKobHItEIYCGAExBwe8jcToF9zIKrEdDYIuP2MgOWFSE34wYiR5iqQPj0JIeoVdlG4VD4XA67mAcNa1fhzA1jwHuTRxDUQ//iYBczjHiTJcIuPyKlHQkv/LHQUYkuSi57yQT//uggfZNajQ3Vmz+Zt//+mm3Wm3Q576v////+32///5/EOgAAADVghQAAAAA//uQZAUAB1WI0PZugAAAAAoQwAAAEk3nRd2qAAAAACiDgAAAAAAABCqEEQRLCgwpBGMlJkIz8jKhGvj4k6jzRnqasNKIeoh5gI7BJaC1A1AoNBjJgbyApVS4IDlZgDU5WUAxEKDNmmALHzZp0Fkz1FMTmGFl1FMEyodIavcCAUHDWrKAIA4aa2oCgILEBupZgHvAhEBcZ6joQBxS76AgccrFlczBvKLC0QI2cBoCFvfTDAo7eoOQInqDPBtvrDEZBNYN5xwNwxQRfw8ZQ5wQVLvO8OYU+mHvFLlDh05Mdg7BT6YrRPpCBznMB2r//xKJjyyOh+cImr2/4doscwD6neZjuZR4AgAABYAAAABy1xcdQtxYBYYZdifkUDgzzXaXn98Z0oi9ILU5mBjFANmRwlVJ3/6jYDAmxaiDG3/6xjQQCCKkRb/6kg/wW+kSJ5//rLobkLSiKmqP/0ikJuDaSaSf/6JiLYLEYnW/+kXg1WRVJL/9EmQ1YZIsv/6Qzwy5qk7/+tEU0nkls3/zIUMPKNX/6yZLf+kFgAfgGyLFAUwY//uQZAUABcd5UiNPVXAAAApAAAAAE0VZQKw9ISAAACgAAAAAVQIygIElVrFkBS+Jhi+EAuu+lKAkYUEIsmEAEoMeDmCETMvfSHTGkF5RWH7kz/ESHWPAq/kcCRhqBtMdokPdM7vil7RG98A2sc7zO6ZvTdM7pmOUAZTnJW+NXxqmd41dqJ6mLTXxrPpnV8yrug+W4OXc2e8vXxLGPMrN3pe/We0I++WpQwX94hjo9IsG8jxa2SuKZFwsQQMqn7K05W17YSWAGxAr76p1lQ+wFz3+S2HM2YNix4LVmgO8O9i9cAAAjA1IAAAAAtIAAAAAIADAAAAAAoAAIAAAAACQAAQAAAAEGAIAAAAACsAAAAGGqkFvNAAAAAMNUFv/9kQyAAAAAAZUgV//ZJMC9AAAAAGVAM/zTJm/9k=");
+      beepSoundRef.current = new Audio("data:audio/wav;base64,//uQRAAAAWMSLwUIYAAsYkXgoQwAEaYLWfkWgAI0wWs/ItAAAGDgYtAgAyN+QWaAAihwMWm4G8QQRDiMcCBcH3Cc+CDv/7xA4Tvh9Rz/y8QADBwMWgQAZG/ILNAARQ4GLTcDeIIIhxGOBAuD7hOfBB3/94gcJ3w+o5/5eIAIAAAVwWgQAVQ2ORaIQwEMAJiDg95G4nQL7mQVWI6GwRcfsZAcsKkJvxgxEjzFUgfHoSQ9Qq7KNwqHwuB13MA4a1q/DmBrHgPcmjiGoh//EwC5nGPEmS4RcfkVKOhJf+WOgoxJclFz3kgn//dBA+ya1GhurNn8zb//9NNutNuhz31f////9vt///z+IdAEAAAK4LQIAKobHItEIYCGAExBwe8jcToF9zIKrEdDYIuP2MgOWFSE34wYiR5iqQPj0JIeoVdlG4VD4XA67mAcNa1fhzA1jwHuTRxDUQ//iYBczjHiTJcIuPyKlHQkv/LHQUYkuSi57yQT//uggfZNajQ3Vmz+Zt//+mm3Wm3Q576v////+32///5/EOgAAADVghQAAAAA//uQZAUAB1WI0PZugAAAAAoQwAAAEk3nRd2qAAAAACiDgAAAAAAABCqEEQRLCgwpBGMlJkIz8jKhGvj4k6jzRnqasNKIeoh5gI7BJaC1A1AoNBjJgbyApVS4IDlZgDU5WUAxEKDNmmALHzZp0Fkz1FMTmGFl1FMEyodIavcCAUHDWrKAIA4aa2oCgILEBupZgHvAhEBcZ6joQBxS76AgccrFlczBvKLC0QI2cBoCFvfTDAo7eoOQInqDPBtvrDEZBNYN5xwNwxQRfw8ZQ5wQVLvO8OYU+mHvFLlDh05Mdg7BT6YrRPpCBznMB2r//xKJjyyOh+cImr2/4doscwD6neZjuZR4AgAABYAAAABy1xcdQtxYBYYZdifkUDgzzXaXn98Z0oi9ILU5mBjFANmRwlVJ3/6jYDAmxaiDG3/6xjQQCCKkRb/6kg/wW+kSJ5//rLobkLSiKmqP/0ikJuDaSaSf/6JiLYLEYnW/+kXg1WRVJL/9EmQ1YZIsv/6Qzwy5qk7/+tEU0nkls3/zIUMPKNX/6yZLf+kFgAfgGyLFAUwY//uQZAUABcd5UiNPVXAAAApAAAAAE0VZQKw9ISAAACgAAAAAVQIygIElVrFkBS+Jhi+EAuu+lKAkYUEIsmEAEoMeDmCETMvfSHTGkF5RWH7kz/ESHWPAq/kcCRhqBtMdokPdM7vil7RG98A2sc7zO6ZvTdM7pmOUAZTnJW+NXxqmd41dqJ6mLTXxrPpnV8yrug+W4OXc2e8vXxLGPMrN3pe/We0I++WpQwX94hjo9IsG8jxa2SuKZFwsQQMqn7K05W17YSWAGxAr76p1lQ+wFz3+S2HM2YNix4LVmgO8O9i9cAAAjA1IAAAAAtIAAAAAIADAAAAAAoAAIAAAAACQAAQAAAAEGAIAAAAACsAAAAGGqkFvNAAAAAMNUFv/9k=");
     }
 
     if (beepSoundRef.current) {
@@ -130,14 +131,14 @@ const GovServicesSection: React.FC = () => {
       setCardActive(true);
       toast({
         title: "NFC Card Activated",
-        description: "Tap on a government service to access your details.",
+        description: "Select a government service to access your details.",
         duration: 3000,
       });
       playBeepSound();
     }
   };
 
-  // Handle terminal interaction - fixed to prevent vanishing on click
+  // Handle terminal interaction
   const handleTerminalInteraction = (terminal: string) => {
     if (!cardActive) {
       toast({
@@ -148,7 +149,6 @@ const GovServicesSection: React.FC = () => {
       return;
     }
 
-    // Toggle the terminal if it's already active, otherwise set it
     setActiveTerminal(terminal === activeTerminal ? null : terminal);
     playBeepSound();
   };
@@ -178,11 +178,9 @@ const GovServicesSection: React.FC = () => {
 
   // Change user card
   const changeUser = (userId: string) => {
-    // Reset state
     setCardActive(false);
     setActiveTerminal(null);
     
-    // Find and set the selected user
     const user = userProfiles.find(u => u.id === userId);
     if (user) {
       setSelectedUser(user);
@@ -235,52 +233,66 @@ const GovServicesSection: React.FC = () => {
           </button>
         </div>
         
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <div
             ref={(el) => addToRefs(el, 1)}
-            className="appear-animate cyberpunk-card p-6 md:p-10"
+            className="appear-animate cyberpunk-card p-8 md:p-12"
             style={{ transitionDelay: '100ms' }}
           >
-            {/* User Selection Tabs */}
-            <div className="mb-8">
-              <h3 className="text-lg font-semibold mb-4 text-center">Select User Card</h3>
-              <Tabs defaultValue="user1" className="w-full" onValueChange={(value) => changeUser(value)}>
-                <TabsList className="grid grid-cols-3 w-full bg-ncrypt-dark-blue/50">
-                  {userProfiles.map((user) => (
-                    <TabsTrigger 
-                      key={user.id} 
-                      value={user.id}
-                      className="data-[state=active]:bg-ncrypt-blue/20 data-[state=active]:text-white"
-                    >
-                      <div className="flex items-center gap-2">
-                        <UsersIcon className="w-4 h-4" />
-                        <span>{user.name}</span>
+            {/* New User Selection Design */}
+            <div className="mb-12">
+              <h3 className="text-2xl font-semibold mb-8 text-center text-white">Select User Profile</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {userProfiles.map((user) => (
+                  <Card 
+                    key={user.id}
+                    className={`cursor-pointer transition-all duration-300 transform hover:scale-105 ${
+                      selectedUser.id === user.id 
+                        ? 'bg-gradient-to-br from-ncrypt-blue/30 to-ncrypt-cyan/20 border-ncrypt-blue shadow-lg shadow-ncrypt-blue/30' 
+                        : 'bg-muted/20 hover:bg-muted/30 border-white/20'
+                    }`}
+                    onClick={() => changeUser(user.id)}
+                  >
+                    <CardContent className="p-6">
+                      <div className="flex flex-col items-center text-center gap-4">
+                        <div className="text-4xl mb-2">{user.avatar}</div>
+                        <div>
+                          <h4 className="text-lg font-semibold text-white mb-1">{user.name}</h4>
+                          <p className="text-sm text-white/70 mb-2">Age: {user.age}</p>
+                          <p className="text-xs text-white/60 font-mono">{user.cardId}</p>
+                        </div>
+                        {selectedUser.id === user.id && (
+                          <div className="flex items-center gap-1 text-ncrypt-blue">
+                            <CheckCircle className="w-4 h-4" />
+                            <span className="text-sm">Selected</span>
+                          </div>
+                        )}
                       </div>
-                    </TabsTrigger>
-                  ))}
-                </TabsList>
-              </Tabs>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
             </div>
             
             {/* NFC Card Display */}
-            <div className="mb-10 flex justify-center">
+            <div className="mb-12 flex justify-center">
               <div
                 ref={cardRef}
-                className={`relative w-64 h-40 rounded-xl cursor-pointer transition-all duration-500 transform ${
-                  cardActive ? 'scale-105 shadow-[0_0_25px_rgba(0,194,255,0.6)]' : 'hover:scale-105'
+                className={`relative w-80 h-48 rounded-2xl cursor-pointer transition-all duration-500 transform ${
+                  cardActive ? 'scale-105 shadow-[0_0_30px_rgba(0,194,255,0.6)]' : 'hover:scale-105'
                 }`}
                 onClick={handleCardTap}
                 style={{
-                  background: "linear-gradient(135deg, rgba(10, 16, 31, 0.8) 0%, rgba(5, 10, 21, 0.9) 100%)",
+                  background: "linear-gradient(135deg, rgba(10, 16, 31, 0.9) 0%, rgba(5, 10, 21, 0.95) 100%)",
                   border: cardActive ? "2px solid rgba(0, 194, 255, 0.8)" : "1px solid rgba(0, 194, 255, 0.3)",
                 }}
               >
                 {/* Card Chip */}
-                <div className="absolute top-4 left-4 w-10 h-8 rounded-md bg-yellow-300/80"></div>
+                <div className="absolute top-6 left-6 w-12 h-10 rounded-lg bg-yellow-300/90 shadow-lg"></div>
                 
                 {/* NFC Symbol */}
-                <div className={`absolute right-4 top-4 ${cardActive ? 'animate-pulse' : ''}`}>
-                  <svg className="w-6 h-6 text-ncrypt-blue" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <div className={`absolute right-6 top-6 ${cardActive ? 'animate-pulse' : ''}`}>
+                  <svg className="w-8 h-8 text-ncrypt-blue" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M6 8.6C6 8.04 6 7.76 6.109 7.546C6.205 7.356 6.356 7.205 6.546 7.109C6.76 7 7.04 7 7.6 7H9.4C9.96 7 10.24 7 10.454 7.109C10.644 7.205 10.795 7.356 10.891 7.546C11 7.76 11 8.04 11 8.6V9.4C11 9.96 11 10.24 10.891 10.454C10.795 10.644 10.644 10.795 10.454 10.891C10.24 11 9.96 11 9.4 11H7.6C7.04 11 6.76 11 6.546 10.891C6.356 10.795 6.205 10.644 6.109 10.454C6 10.24 6 9.96 6 9.4V8.6Z"
                       stroke="currentColor"
@@ -300,277 +312,189 @@ const GovServicesSection: React.FC = () => {
                 </div>
                 
                 {/* Card Info */}
-                <div className="absolute bottom-4 left-4 right-4 text-left">
-                  <p className="text-ncrypt-blue font-mono text-sm mb-1">{selectedUser.name}</p>
+                <div className="absolute bottom-6 left-6 right-6">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="text-2xl">{selectedUser.avatar}</div>
+                    <div>
+                      <p className="text-ncrypt-blue font-semibold text-lg">{selectedUser.name}</p>
+                      <p className="text-white/80 text-sm">Age: {selectedUser.age}</p>
+                    </div>
+                  </div>
                   <div className="flex items-center justify-between">
-                    <p className="text-white/80 font-mono text-xs">ID: {selectedUser.cardId}</p>
-                    <p className="text-white/80 font-mono text-xs">{selectedUser.expiryDate}</p>
+                    <p className="text-white/80 font-mono text-sm">ID: {selectedUser.cardId}</p>
+                    <p className="text-white/80 font-mono text-sm">{selectedUser.expiryDate}</p>
                   </div>
                 </div>
                 
                 {/* Animation indicator */}
                 {!cardActive && (
-                  <div className="absolute inset-0 flex items-center justify-center flex-col">
-                    <div className="w-8 h-8 rounded-full border-2 border-ncrypt-blue/60 flex items-center justify-center animate-pulse">
-                      <div className="w-6 h-6 rounded-full border-2 border-ncrypt-blue/80"></div>
+                  <div className="absolute inset-0 flex items-center justify-center flex-col bg-black/20 rounded-2xl">
+                    <div className="w-12 h-12 rounded-full border-2 border-ncrypt-blue/60 flex items-center justify-center animate-pulse">
+                      <div className="w-8 h-8 rounded-full border-2 border-ncrypt-blue/80"></div>
                     </div>
-                    <p className="text-sm text-white/70 mt-2">Tap to activate</p>
+                    <p className="text-lg text-white/80 mt-3 font-medium">Tap to activate</p>
                   </div>
                 )}
                 
                 {/* Glow effect */}
                 {cardActive && (
-                  <div className="absolute -inset-2 bg-ncrypt-blue/20 rounded-xl blur-md -z-10"></div>
+                  <div className="absolute -inset-3 bg-ncrypt-blue/20 rounded-2xl blur-lg -z-10"></div>
                 )}
               </div>
             </div>
             
             {/* Service Terminals */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
               {/* Ration Center Terminal */}
-              <div className="relative">
-                <Popover open={activeTerminal === 'ration'} onOpenChange={(open) => {
-                  if (!open) setActiveTerminal(null);
-                }}>
-                  <PopoverTrigger className="w-full" asChild>
-                    <div className="w-full">
-                      <Card
-                        ref={(el) => addToRefs(el, 2)} 
-                        className={`appear-animate cursor-pointer transition-all duration-300 ${
-                          activeTerminal === 'ration'
-                            ? 'bg-gradient-to-br from-ncrypt-dark-blue to-ncrypt-dark border-ncrypt-blue shadow-lg shadow-ncrypt-blue/30'
-                            : 'bg-muted/20 hover:bg-muted/30 border-white/10'
-                        }`}
-                        onClick={() => handleTerminalInteraction('ration')}
-                        style={{ transitionDelay: '200ms' }}
-                      >
-                        <CardContent className="p-6 flex flex-col items-center gap-4">
-                          <div className={`p-4 rounded-full ${activeTerminal === 'ration' ? 'bg-ncrypt-blue/20' : 'bg-white/5'}`}>
-                            <ShoppingBasketIcon className={`w-8 h-8 ${activeTerminal === 'ration' ? 'text-ncrypt-blue' : 'text-white/70'}`} />
-                          </div>
-                          <div className="text-center">
-                            <h3 className="text-xl font-semibold mb-1">Ration Center</h3>
-                            <p className="text-sm text-white/60">Public Distribution System</p>
-                          </div>
-                          <div className={`w-full h-1 mt-2 rounded-full overflow-hidden ${activeTerminal === 'ration' ? 'bg-ncrypt-dark-blue' : 'bg-white/10'}`}>
-                            {activeTerminal === 'ration' && (
-                              <div className="h-full bg-ncrypt-blue" style={{ width: '100%', animation: 'pulse 2s infinite' }}></div>
-                            )}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </div>
-                  </PopoverTrigger>
-                  <PopoverContent 
-                    className="w-80 bg-gradient-to-br from-ncrypt-dark-blue to-ncrypt-dark border border-ncrypt-blue/40 shadow-lg shadow-ncrypt-blue/20 text-white z-50"
-                    align="center"
-                    side="top"
-                    sideOffset={5}
-                  >
-                    <div className="p-2">
-                      <div className="flex items-center space-x-2 mb-4">
-                        <IdCardIcon className="w-5 h-5 text-ncrypt-blue" />
-                        <h4 className="font-semibold">Ration Card Details</h4>
-                      </div>
-                      <div className="space-y-2 mb-4">
-                        <div className="flex justify-between">
-                          <span className="text-white/70 text-sm">Name:</span>
-                          <span className="font-medium">{selectedUser.name}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-white/70 text-sm">Age:</span>
-                          <span className="font-medium">{selectedUser.age}</span>
-                        </div>
+              <Card
+                ref={(el) => addToRefs(el, 2)}
+                className={`appear-animate cursor-pointer transition-all duration-300 ${
+                  activeTerminal === 'ration'
+                    ? 'bg-gradient-to-br from-ncrypt-dark-blue to-ncrypt-dark border-ncrypt-blue shadow-lg shadow-ncrypt-blue/30'
+                    : 'bg-muted/20 hover:bg-muted/30 border-white/10'
+                }`}
+                onClick={() => handleTerminalInteraction('ration')}
+                style={{ transitionDelay: '200ms' }}
+              >
+                <CardContent className="p-8 text-center">
+                  <div className={`p-6 rounded-full mx-auto mb-6 w-20 h-20 flex items-center justify-center ${
+                    activeTerminal === 'ration' ? 'bg-ncrypt-blue/20' : 'bg-white/5'
+                  }`}>
+                    <ShoppingBasketIcon className={`w-10 h-10 ${
+                      activeTerminal === 'ration' ? 'text-ncrypt-blue' : 'text-white/70'
+                    }`} />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-2">Ration Center</h3>
+                  <p className="text-sm text-white/60 mb-4">Public Distribution System</p>
+                  
+                  {activeTerminal === 'ration' && (
+                    <div className="mt-6 p-4 bg-ncrypt-blue/10 rounded-lg">
+                      <div className="space-y-2 text-left">
                         <div className="flex justify-between">
                           <span className="text-white/70 text-sm">Ration Card ID:</span>
                           <span className="font-mono text-sm">{selectedUser.rationCardId}</span>
                         </div>
-                      </div>
-                      <div className="pt-3 border-t border-white/10">
-                        <h5 className="text-sm font-medium mb-2">Eligible Items:</h5>
-                        <div className="flex flex-wrap gap-2">
-                          {selectedUser.rationItems.map((item, index) => (
-                            <span key={index} className="px-2 py-1 bg-ncrypt-blue/20 rounded-md text-xs">{item}</span>
-                          ))}
+                        <div className="flex justify-between">
+                          <span className="text-white/70 text-sm">Next Delivery:</span>
+                          <span className="text-ncrypt-blue text-sm">{selectedUser.nextDelivery}</span>
+                        </div>
+                        <div className="mt-3">
+                          <p className="text-white/70 text-sm mb-2">Eligible Items:</p>
+                          <div className="flex flex-wrap gap-1">
+                            {selectedUser.rationItems.map((item, index) => (
+                              <Badge key={index} variant="secondary" className="bg-ncrypt-blue/20 text-white text-xs">
+                                {item}
+                              </Badge>
+                            ))}
+                          </div>
                         </div>
                       </div>
-                      <div className="mt-3 flex justify-between items-center pt-2 border-t border-white/10">
-                        <span className="text-white/70 text-sm">Next Delivery:</span>
-                        <span className="font-medium text-ncrypt-blue">{selectedUser.nextDelivery}</span>
-                      </div>
                     </div>
-                  </PopoverContent>
-                </Popover>
-              </div>
+                  )}
+                </CardContent>
+              </Card>
 
               {/* Hospital Terminal */}
-              <div className="relative">
-                <Popover open={activeTerminal === 'hospital'} onOpenChange={(open) => {
-                  if (!open) setActiveTerminal(null);
-                }}>
-                  <PopoverTrigger className="w-full" asChild>
-                    <div className="w-full">
-                      <Card 
-                        ref={(el) => addToRefs(el, 3)}
-                        className={`appear-animate cursor-pointer transition-all duration-300 ${
-                          activeTerminal === 'hospital'
-                            ? 'bg-gradient-to-br from-ncrypt-dark-blue to-ncrypt-dark border-ncrypt-blue shadow-lg shadow-ncrypt-blue/30'
-                            : 'bg-muted/20 hover:bg-muted/30 border-white/10'
-                        }`}
-                        onClick={() => handleTerminalInteraction('hospital')}
-                        style={{ transitionDelay: '300ms' }}
-                      >
-                        <CardContent className="p-6 flex flex-col items-center gap-4">
-                          <div className={`p-4 rounded-full ${activeTerminal === 'hospital' ? 'bg-ncrypt-blue/20' : 'bg-white/5'}`}>
-                            <HospitalIcon className={`w-8 h-8 ${activeTerminal === 'hospital' ? 'text-ncrypt-blue' : 'text-white/70'}`} />
-                          </div>
-                          <div className="text-center">
-                            <h3 className="text-xl font-semibold mb-1">Health Hospital</h3>
-                            <p className="text-sm text-white/60">Government Medical Services</p>
-                          </div>
-                          <div className={`w-full h-1 mt-2 rounded-full overflow-hidden ${activeTerminal === 'hospital' ? 'bg-ncrypt-dark-blue' : 'bg-white/10'}`}>
-                            {activeTerminal === 'hospital' && (
-                              <div className="h-full bg-ncrypt-blue" style={{ width: '100%', animation: 'pulse 2s infinite' }}></div>
-                            )}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </div>
-                  </PopoverTrigger>
-                  <PopoverContent 
-                    className="w-80 bg-gradient-to-br from-ncrypt-dark-blue to-ncrypt-dark border border-ncrypt-blue/40 shadow-lg shadow-ncrypt-blue/20 text-white z-50"
-                    align="center"
-                    side="top"
-                    sideOffset={5}
-                  >
-                    <div className="p-2">
-                      <div className="flex items-center space-x-2 mb-4">
-                        <IdCardIcon className="w-5 h-5 text-ncrypt-blue" />
-                        <h4 className="font-semibold">Health Card Details</h4>
-                      </div>
-                      <div className="space-y-2 mb-4">
-                        <div className="flex justify-between">
-                          <span className="text-white/70 text-sm">Name:</span>
-                          <span className="font-medium">{selectedUser.name}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-white/70 text-sm">Age:</span>
-                          <span className="font-medium">{selectedUser.age}</span>
-                        </div>
+              <Card
+                ref={(el) => addToRefs(el, 3)}
+                className={`appear-animate cursor-pointer transition-all duration-300 ${
+                  activeTerminal === 'hospital'
+                    ? 'bg-gradient-to-br from-ncrypt-dark-blue to-ncrypt-dark border-ncrypt-blue shadow-lg shadow-ncrypt-blue/30'
+                    : 'bg-muted/20 hover:bg-muted/30 border-white/10'
+                }`}
+                onClick={() => handleTerminalInteraction('hospital')}
+                style={{ transitionDelay: '300ms' }}
+              >
+                <CardContent className="p-8 text-center">
+                  <div className={`p-6 rounded-full mx-auto mb-6 w-20 h-20 flex items-center justify-center ${
+                    activeTerminal === 'hospital' ? 'bg-ncrypt-blue/20' : 'bg-white/5'
+                  }`}>
+                    <HospitalIcon className={`w-10 h-10 ${
+                      activeTerminal === 'hospital' ? 'text-ncrypt-blue' : 'text-white/70'
+                    }`} />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-2">Health Hospital</h3>
+                  <p className="text-sm text-white/60 mb-4">Government Medical Services</p>
+                  
+                  {activeTerminal === 'hospital' && (
+                    <div className="mt-6 p-4 bg-ncrypt-blue/10 rounded-lg">
+                      <div className="space-y-2 text-left">
                         <div className="flex justify-between">
                           <span className="text-white/70 text-sm">Blood Group:</span>
                           <span className="font-medium">{selectedUser.bloodGroup}</span>
                         </div>
-                      </div>
-                      <div className="pt-3 border-t border-white/10">
                         <div className="flex justify-between">
-                          <span className="text-white/70 text-sm">Health Card Balance:</span>
-                          <span className="font-medium text-ncrypt-blue">{selectedUser.healthBalance}</span>
+                          <span className="text-white/70 text-sm">Health Balance:</span>
+                          <span className="text-ncrypt-blue font-medium">{selectedUser.healthBalance}</span>
                         </div>
-                      </div>
-                      <div className="mt-3 flex flex-col gap-1 pt-2 border-t border-white/10">
-                        <div className="text-white/70 text-sm">Recent Claim:</div>
-                        <div className="bg-ncrypt-blue/10 p-2 rounded-md">
+                        <div className="mt-3 p-2 bg-ncrypt-blue/10 rounded-md">
                           <div className="text-sm font-medium">{selectedUser.recentClaim}</div>
                           <div className="text-xs text-white/70">{selectedUser.recentClaimDate}</div>
                         </div>
                       </div>
                     </div>
-                  </PopoverContent>
-                </Popover>
-              </div>
+                  )}
+                </CardContent>
+              </Card>
               
               {/* Pension Terminal */}
-              <div className="relative">
-                <Popover open={activeTerminal === 'pension'} onOpenChange={(open) => {
-                  if (!open) setActiveTerminal(null);
-                }}>
-                  <PopoverTrigger className="w-full" asChild>
-                    <div className="w-full">
-                      <Card 
-                        ref={(el) => addToRefs(el, 4)}
-                        className={`appear-animate cursor-pointer transition-all duration-300 ${
-                          activeTerminal === 'pension'
-                            ? 'bg-gradient-to-br from-ncrypt-dark-blue to-ncrypt-dark border-ncrypt-blue shadow-lg shadow-ncrypt-blue/30'
-                            : 'bg-muted/20 hover:bg-muted/30 border-white/10'
-                        }`}
-                        onClick={() => handleTerminalInteraction('pension')}
-                        style={{ transitionDelay: '400ms' }}
-                      >
-                        <CardContent className="p-6 flex flex-col items-center gap-4">
-                          <div className={`p-4 rounded-full ${activeTerminal === 'pension' ? 'bg-ncrypt-blue/20' : 'bg-white/5'}`}>
-                            <BanknoteIcon className={`w-8 h-8 ${activeTerminal === 'pension' ? 'text-ncrypt-blue' : 'text-white/70'}`} />
-                          </div>
-                          <div className="text-center">
-                            <h3 className="text-xl font-semibold mb-1">Pension Center</h3>
-                            <p className="text-sm text-white/60">Senior Citizen Benefits</p>
-                          </div>
-                          <div className={`w-full h-1 mt-2 rounded-full overflow-hidden ${activeTerminal === 'pension' ? 'bg-ncrypt-dark-blue' : 'bg-white/10'}`}>
-                            {activeTerminal === 'pension' && (
-                              <div className="h-full bg-ncrypt-blue" style={{ width: '100%', animation: 'pulse 2s infinite' }}></div>
-                            )}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </div>
-                  </PopoverTrigger>
-                  <PopoverContent 
-                    className="w-80 bg-gradient-to-br from-ncrypt-dark-blue to-ncrypt-dark border border-ncrypt-blue/40 shadow-lg shadow-ncrypt-blue/20 text-white z-50"
-                    align="center"
-                    side="top"
-                    sideOffset={5}
-                  >
-                    <div className="p-2">
-                      <div className="flex items-center space-x-2 mb-4">
-                        <IdCardIcon className="w-5 h-5 text-ncrypt-blue" />
-                        <h4 className="font-semibold">Pension Card Details</h4>
-                      </div>
-                      <div className="space-y-2 mb-4">
-                        <div className="flex justify-between">
-                          <span className="text-white/70 text-sm">Name:</span>
-                          <span className="font-medium">{selectedUser.name}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-white/70 text-sm">Age:</span>
-                          <span className="font-medium">{selectedUser.age}</span>
-                        </div>
+              <Card
+                ref={(el) => addToRefs(el, 4)}
+                className={`appear-animate cursor-pointer transition-all duration-300 ${
+                  activeTerminal === 'pension'
+                    ? 'bg-gradient-to-br from-ncrypt-dark-blue to-ncrypt-dark border-ncrypt-blue shadow-lg shadow-ncrypt-blue/30'
+                    : 'bg-muted/20 hover:bg-muted/30 border-white/10'
+                }`}
+                onClick={() => handleTerminalInteraction('pension')}
+                style={{ transitionDelay: '400ms' }}
+              >
+                <CardContent className="p-8 text-center">
+                  <div className={`p-6 rounded-full mx-auto mb-6 w-20 h-20 flex items-center justify-center ${
+                    activeTerminal === 'pension' ? 'bg-ncrypt-blue/20' : 'bg-white/5'
+                  }`}>
+                    <BanknoteIcon className={`w-10 h-10 ${
+                      activeTerminal === 'pension' ? 'text-ncrypt-blue' : 'text-white/70'
+                    }`} />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-2">Pension Center</h3>
+                  <p className="text-sm text-white/60 mb-4">Senior Citizen Benefits</p>
+                  
+                  {activeTerminal === 'pension' && (
+                    <div className="mt-6 p-4 bg-ncrypt-blue/10 rounded-lg">
+                      <div className="space-y-2 text-left">
                         <div className="flex justify-between">
                           <span className="text-white/70 text-sm">Pension ID:</span>
                           <span className="font-mono text-sm">{selectedUser.pensionId}</span>
                         </div>
-                      </div>
-                      <div className="pt-3 border-t border-white/10">
                         <div className="flex justify-between">
-                          <span className="text-white/70 text-sm">Pension Amount:</span>
-                          <span className="font-medium text-ncrypt-blue">{selectedUser.pensionAmount}</span>
+                          <span className="text-white/70 text-sm">Amount:</span>
+                          <span className="text-ncrypt-blue font-medium">{selectedUser.pensionAmount}</span>
                         </div>
-                      </div>
-                      <div className="mt-3 flex flex-col gap-1 pt-2 border-t border-white/10">
                         <div className="flex justify-between">
                           <span className="text-white/70 text-sm">Next Payment:</span>
                           <span className="text-sm">{selectedUser.pensionDate}</span>
                         </div>
-                        <div className="flex justify-between mt-2">
+                        <div className="flex justify-between">
                           <span className="text-white/70 text-sm">Pension Age:</span>
                           <span className="text-sm">{selectedUser.pensionAge} years</span>
                         </div>
                       </div>
                     </div>
-                  </PopoverContent>
-                </Popover>
-              </div>
+                  )}
+                </CardContent>
+              </Card>
             </div>
             
             {/* Demo Link Button */}
-            <div className="mt-12 text-center">
+            <div className="text-center">
               <Button 
                 onClick={goToVotingDemo} 
-                className="bg-ncrypt-blue hover:bg-ncrypt-blue/80 text-white font-medium"
+                className="bg-ncrypt-blue hover:bg-ncrypt-blue/80 text-white font-medium px-8 py-3"
               >
-                <CircleArrowDownIcon className="w-4 h-4" />
+                <CircleArrowDownIcon className="w-5 h-5 mr-2" />
                 Go to Voting Verification Demo
               </Button>
-              <p className="text-sm text-white/60 mt-2">See how the same identity verification works for voting</p>
+              <p className="text-sm text-white/60 mt-3">See how the same identity verification works for voting</p>
             </div>
           </div>
         </div>

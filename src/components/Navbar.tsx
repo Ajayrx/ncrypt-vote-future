@@ -82,7 +82,7 @@ const Navbar = () => {
               onClick={() => scrollTo("submissions")}
               className="text-white/80 hover:text-ncrypt-blue transition-colors"
             >
-              Submissions
+              Prototype
             </button>
             <button 
               onClick={() => scrollTo("team")}
@@ -102,8 +102,17 @@ const Navbar = () => {
             >
               <Github size={20} />
             </a>
-            <button className="text-sm px-4 py-2 rounded-md bg-gradient-to-r from-ncrypt-blue to-ncrypt-cyan text-white font-medium transition-all hover:shadow-[0_0_15px_rgba(0,194,255,0.4)] hover:scale-105">
-              Contact Us
+            <button 
+              onClick={() => scrollTo("submissions")}
+              className="text-sm px-4 py-2 rounded-md bg-gradient-to-r from-ncrypt-blue/20 to-ncrypt-cyan/20 border border-ncrypt-blue/40 text-white font-medium transition-all hover:shadow-[0_0_15px_rgba(0,194,255,0.4)] hover:scale-105"
+            >
+              Prototype
+            </button>
+            <button 
+              onClick={() => scrollTo("demo")}
+              className="text-sm px-4 py-2 rounded-md bg-gradient-to-r from-ncrypt-blue to-ncrypt-cyan text-white font-medium transition-all hover:shadow-[0_0_15px_rgba(0,194,255,0.4)] hover:scale-105"
+            >
+              Explore Demo
             </button>
           </div>
           
@@ -114,15 +123,6 @@ const Navbar = () => {
             </svg>
           </button>
         </div>
-        
-        {/* Mobile menu - This would typically be conditionally rendered */}
-        {/* <div className="md:hidden px-2 pt-2 pb-3 space-y-1">
-          {navItems.map((item) => (
-            <a key={item.href} href={item.href} className="block px-3 py-2 text-white hover:text-ncrypt-blue">
-              {item.name}
-            </a>
-          ))}
-        </div> */}
       </div>
     </header>
   );

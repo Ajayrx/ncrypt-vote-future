@@ -79,6 +79,12 @@ const Navbar = () => {
               Security
             </button>
             <button 
+              onClick={() => scrollTo("submissions")}
+              className="text-white/80 hover:text-ncrypt-blue transition-colors"
+            >
+              Submissions
+            </button>
+            <button 
               onClick={() => scrollTo("team")}
               className="text-white/80 hover:text-ncrypt-blue transition-colors"
             >

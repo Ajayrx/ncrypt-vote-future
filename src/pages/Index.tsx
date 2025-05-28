@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import Navbar from "../components/Navbar";
 import HeroSection from "../components/HeroSection";
+import PrototypeSubmissions from "../components/PrototypeSubmissions";
 import ProblemStatement from "../components/ProblemStatement";
 import SolutionSection from "../components/SolutionSection";
 import DemoSection from "../components/DemoSection";
 import GovServicesSection from "../components/GovServicesSection";
 import TechnologiesSection from "../components/TechnologiesSection";
 import SecuritySection from "../components/SecuritySection";
-import PrototypeSubmissions from "../components/PrototypeSubmissions";
 import TeamSection from "../components/TeamSection";
 import Footer from "../components/Footer";
 
@@ -70,13 +70,13 @@ const Index = () => {
     <div className="min-h-screen bg-ncrypt-dark text-white overflow-hidden">
       <Navbar />
       <HeroSection />
+      <PrototypeSubmissions />
       <ProblemStatement />
       <SolutionSection />
       <DemoSection />
       <GovServicesSection />
       <TechnologiesSection />
       <SecuritySection />
-      <PrototypeSubmissions />
       <TeamSection />
       <Footer />
     </div>

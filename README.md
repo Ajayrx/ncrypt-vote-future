@@ -24,7 +24,7 @@
 
       Lack of seamless integration across services
 
-# 💡 Inspired By
+## 💡 Inspired By
     Real-world issues in digital governance, especially during elections and public welfare distribution.
 
 

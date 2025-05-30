@@ -169,7 +169,7 @@ const HeroSection: React.FC = () => {
             </button>
             <button 
               onClick={scrollToPrototype}
-              className="px-8 py-3 rounded-full bg-gradient-to-r from-ncrypt-blue/20 to-ncrypt-cyan/20 border border-ncrypt-blue/40 text-white font-medium transition-all hover:shadow-[0_0_15px_rgba(0,194,255,0.4)] hover:scale-105"
+              className="neo-button"
             >
               Prototype
             </button>

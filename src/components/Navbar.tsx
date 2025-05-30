@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-import { Github } from "lucide-react";
+import { Github, Home } from "lucide-react";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -48,6 +48,13 @@ const Navbar = () => {
           </div>
           
           <nav className="hidden md:flex space-x-8 text-sm font-medium">
+            <button 
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="text-white/80 hover:text-ncrypt-blue transition-colors flex items-center gap-2"
+            >
+              <Home size={16} />
+              Home
+            </button>
             <button 
               onClick={() => scrollTo("problem")}
               className="text-white/80 hover:text-ncrypt-blue transition-colors"

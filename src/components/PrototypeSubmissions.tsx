@@ -36,7 +36,8 @@ const PrototypeSubmissions = () => {
       redirectIcon: <ExternalLink className="w-4 h-4" />,
       action: () => handleSectionClick('prototype-link'),
       gradient: 'from-blue-500/20 to-cyan-500/20',
-      hoverGradient: 'from-blue-500/30 to-cyan-500/30'
+      hoverGradient: 'from-blue-500/30 to-cyan-500/30',
+      linkText: 'Visit Live Demo'
     },
     {
       id: 'video-demo',
@@ -46,7 +47,8 @@ const PrototypeSubmissions = () => {
       redirectIcon: <Youtube className="w-4 h-4" />,
       action: () => handleSectionClick('video-demo'),
       gradient: 'from-red-500/20 to-orange-500/20',
-      hoverGradient: 'from-red-500/30 to-orange-500/30'
+      hoverGradient: 'from-red-500/30 to-orange-500/30',
+      linkText: 'Watch on YouTube'
     },
     {
       id: 'pitch-deck',
@@ -56,7 +58,8 @@ const PrototypeSubmissions = () => {
       redirectIcon: <ExternalLink className="w-4 h-4" />,
       action: () => handleSectionClick('pitch-deck'),
       gradient: 'from-purple-500/20 to-pink-500/20',
-      hoverGradient: 'from-purple-500/30 to-pink-500/30'
+      hoverGradient: 'from-purple-500/30 to-pink-500/30',
+      linkText: 'View Presentation'
     },
     {
       id: 'github-repo',
@@ -66,12 +69,13 @@ const PrototypeSubmissions = () => {
       redirectIcon: <Github className="w-4 h-4" />,
       action: () => handleSectionClick('github-repo'),
       gradient: 'from-green-500/20 to-emerald-500/20',
-      hoverGradient: 'from-green-500/30 to-emerald-500/30'
+      hoverGradient: 'from-green-500/30 to-emerald-500/30',
+      linkText: 'View Source Code'
     }
   ];
 
   return (
-    <section id="submissions" className="py-24 relative overflow-hidden min-h-screen flex items-center">
+    <section id="submissions" className="py-16 relative overflow-hidden min-h-screen flex items-center">
       {/* Background Elements */}
       <div className="absolute inset-0 grid-background opacity-20"></div>
       <div className="absolute top-1/4 -left-40 w-80 h-80 bg-ncrypt-blue/10 rounded-full filter blur-[120px]"></div>
@@ -112,7 +116,7 @@ const PrototypeSubmissions = () => {
                     </p>
                     <div className="flex items-center justify-center gap-2">
                       <Badge variant="secondary" className="bg-ncrypt-dark-blue/50 text-white text-xs px-3 py-1 rounded-full">
-                        Required
+                        {submission.linkText}
                       </Badge>
                       <div className="opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:scale-110">
                         {submission.redirectIcon}

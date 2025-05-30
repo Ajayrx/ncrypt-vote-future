@@ -87,7 +87,7 @@ const ProblemStatement: React.FC = () => {
   ];
 
   return (
-    <section id="problem" ref={sectionRef} className="py-24 relative overflow-hidden">
+    <section id="problem" ref={sectionRef} className="py-16 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 grid-background opacity-20"></div>
       <div className="absolute top-1/3 -left-36 w-72 h-72 bg-ncrypt-blue/10 rounded-full filter blur-[100px]"></div>
@@ -96,7 +96,7 @@ const ProblemStatement: React.FC = () => {
       <div className="section-container relative z-10">
         <div 
           ref={(el) => addToRefs(el, 0)}
-          className="appear-animate mb-16 text-center max-w-3xl mx-auto"
+          className="appear-animate mb-12 text-center max-w-3xl mx-auto"
           style={{ transitionDelay: '100ms' }}
         >
           <h2 className="section-heading">
@@ -110,7 +110,7 @@ const ProblemStatement: React.FC = () => {
         {/* Stats Bar */}
         <div 
           ref={(el) => addToRefs(el, 1)}
-          className="appear-animate mb-16 grid grid-cols-1 md:grid-cols-3 gap-8"
+          className="appear-animate mb-12 grid grid-cols-1 md:grid-cols-3 gap-8"
           style={{ transitionDelay: '200ms' }}
         >
           <div className="flex flex-col items-center cyberpunk-card p-6">
@@ -124,8 +124,8 @@ const ProblemStatement: React.FC = () => {
           </div>
           
           <div className="flex flex-col items-center cyberpunk-card p-6">
-            <div className="text-4xl font-bold text-ncrypt-blue mb-2">$190M</div>
-            <div className="text-white/70 text-center">Annual cost of identity fraud in elections</div>
+            <div className="text-4xl font-bold text-ncrypt-blue mb-2">100%</div>
+            <div className="text-white/70 text-center">Offline Verification<br/>Prevents impersonation and fake voting without internet</div>
           </div>
         </div>
         
@@ -150,7 +150,7 @@ const ProblemStatement: React.FC = () => {
         {/* Call to Action */}
         <div
           ref={(el) => addToRefs(el, 6)}
-          className="appear-animate mt-16 text-center" 
+          className="appear-animate mt-12 text-center" 
           style={{ transitionDelay: '500ms' }}
         >
           <h3 className="text-2xl font-bold mb-4">The world deserves better.</h3>

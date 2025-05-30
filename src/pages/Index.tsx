@@ -71,7 +71,7 @@ const Index = () => {
     <div className="min-h-screen bg-ncrypt-dark text-white overflow-hidden">
       <Navbar />
       <HeroSection />
-      <div className="space-y-8">
+      <div className="space-y-4">
         <PrototypeSubmissions />
         <ProblemStatement />
         <SolutionSection />

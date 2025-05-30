@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from "@/components/ui/button";
@@ -133,7 +132,7 @@ const DemoSection: React.FC = () => {
   };
 
   return (
-    <section id="demo" ref={sectionRef} className="py-24 relative overflow-hidden">
+    <section id="demo" ref={sectionRef} className="py-16 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 grid-background opacity-20"></div>
       <div className="absolute top-1/3 -left-36 w-72 h-72 bg-ncrypt-blue/10 rounded-full filter blur-[100px]"></div>
@@ -142,7 +141,7 @@ const DemoSection: React.FC = () => {
       <div className="section-container relative z-10">
         <div
           ref={(el) => addToRefs(el, 0)}
-          className="appear-animate text-center max-w-3xl mx-auto mb-16"
+          className="appear-animate text-center max-w-3xl mx-auto mb-12"
         >
           <h2 className="section-heading">Live Demo <span className="text-ncrypt-blue">Simulation</span></h2>
           <p className="text-lg text-white/80 max-w-2xl mx-auto">
@@ -150,14 +149,14 @@ const DemoSection: React.FC = () => {
           </p>
         </div>
         
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <div
             ref={(el) => addToRefs(el, 1)} 
-            className="appear-animate cyberpunk-card p-6 md:p-10"
+            className="appear-animate cyberpunk-card p-6 md:p-8"
             style={{ transitionDelay: '100ms' }}
           >
             {/* Card Type Selection */}
-            <div className="mb-10">
+            <div className="mb-8">
               <h3 className="text-xl font-bold mb-4 text-center">Select Card Type</h3>
               <div className="flex justify-center space-x-6">
                 <button
@@ -200,10 +199,10 @@ const DemoSection: React.FC = () => {
               </div>
             </div>
             
-            {/* Card Scan Interface */}
+            {/* Main Demo Interface - Horizontal Layout */}
             <div
               ref={(el) => addToRefs(el, 2)}
-              className="appear-animate grid grid-cols-1 md:grid-cols-2 gap-8"
+              className="appear-animate grid grid-cols-1 lg:grid-cols-3 gap-8"
               style={{ transitionDelay: '200ms' }}
             >
               {/* NFC Reader */}
@@ -212,7 +211,7 @@ const DemoSection: React.FC = () => {
                 
                 <div className="relative">
                   {/* NFC Reader Device */}
-                  <div className="w-52 h-64 bg-gradient-to-b from-slate-800 to-slate-900 rounded-md border border-slate-700 flex items-center justify-center shadow-lg shadow-black/30">
+                  <div className="w-48 h-56 bg-gradient-to-b from-slate-800 to-slate-900 rounded-md border border-slate-700 flex items-center justify-center shadow-lg shadow-black/30">
                     {/* Reader screen */}
                     <div className="w-40 h-32 bg-ncrypt-dark-blue border border-slate-700 rounded-md flex flex-col items-center justify-center p-3 relative overflow-hidden">
                       {/* Status Indicators */}
@@ -298,12 +297,11 @@ const DemoSection: React.FC = () => {
                 <h3 className="text-lg font-semibold mb-4">2. Scan Your Fingerprint</h3>
                 
                 <div 
-                  className={`w-52 h-52 bg-gradient-to-b from-slate-800 to-slate-900 rounded-md border border-slate-700 flex items-center justify-center cursor-pointer transition-all duration-300 ${fingerprint ? 'shadow-lg shadow-ncrypt-blue/30' : 'opacity-50'}`}
+                  className={`w-48 h-48 bg-gradient-to-b from-slate-800 to-slate-900 rounded-md border border-slate-700 flex items-center justify-center cursor-pointer transition-all duration-300 ${fingerprint ? 'shadow-lg shadow-ncrypt-blue/30' : 'opacity-50'}`}
                   onClick={handleFingerprintScan}
                 >
-                  <div className={`w-32 h-32 rounded-full flex items-center justify-center relative ${fingerprint ? 'bg-ncrypt-blue/20' : 'bg-gray-900'}`}>
-                    {/* Fingerprint graphic */}
-                    <svg 
+                  {/* Fingerprint graphic */}
+                  <svg 
                       className={`w-24 h-24 ${fingerprint ? 'text-ncrypt-blue' : 'text-gray-700'} ${verified !== null ? 'opacity-0' : ''} transition-opacity duration-300`} 
                       fill="none" 
                       stroke="currentColor" 
@@ -360,7 +358,6 @@ const DemoSection: React.FC = () => {
                       </div>
                     )}
                   </div>
-                </div>
                 
                 {fingerprint && verified === null && (
                   <p className="text-sm text-white/60 mt-4 text-center">
@@ -371,54 +368,50 @@ const DemoSection: React.FC = () => {
                 {verified !== null && (
                   <button 
                     onClick={resetDemo}
-                    className="mt-8 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-md text-sm transition-colors"
+                    className="mt-6 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-md text-sm transition-colors"
                   >
                     Reset Demo
                   </button>
                 )}
               </div>
-            </div>
-            
-            {/* Results Display */}
-            <div
-              ref={(el) => addToRefs(el, 3)}
-              className="appear-animate mt-12 p-6 rounded-lg bg-ncrypt-dark-blue/50 border border-ncrypt-blue/20"
-              style={{ transitionDelay: '300ms' }}
-            >
-              <h3 className="text-lg font-semibold mb-3">System Status</h3>
-              
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-white/70">Card Detection:</span>
-                  <span className={scanning || verified !== null ? 'text-ncrypt-blue' : 'text-white/50'}>
-                    {scanning || verified !== null ? 'Complete' : 'Waiting'}
-                  </span>
-                </div>
+
+              {/* Results Display */}
+              <div className="flex flex-col justify-center">
+                <h3 className="text-lg font-semibold mb-4">System Status</h3>
                 
-                <div className="flex items-center justify-between">
-                  <span className="text-white/70">Fingerprint Verification:</span>
-                  <span className={verified !== null ? (verified ? 'text-green-500' : 'text-red-500') : 'text-white/50'}>
-                    {verified === true ? 'Verified' : verified === false ? 'Failed' : 'Waiting'}
-                  </span>
+                <div className="space-y-4 p-6 rounded-lg bg-ncrypt-dark-blue/50 border border-ncrypt-blue/20">
+                  <div className="flex items-center justify-between">
+                    <span className="text-white/70">Card Detection:</span>
+                    <span className={scanning || verified !== null ? 'text-ncrypt-blue' : 'text-white/50'}>
+                      {scanning || verified !== null ? 'Complete' : 'Waiting'}
+                    </span>
+                  </div>
+                  
+                  <div className="flex items-center justify-between">
+                    <span className="text-white/70">Fingerprint Verification:</span>
+                    <span className={verified !== null ? (verified ? 'text-green-500' : 'text-red-500') : 'text-white/50'}>
+                      {verified === true ? 'Verified' : verified === false ? 'Failed' : 'Waiting'}
+                    </span>
+                  </div>
+                  
+                  <div className="flex items-center justify-between">
+                    <span className="text-white/70">Access Status:</span>
+                    <span className={verified ? 'text-green-500' : verified === false ? 'text-red-500' : 'text-white/50'}>
+                      {verified === true ? 'Granted' : verified === false ? 'Denied' : 'Pending'}
+                    </span>
+                  </div>
+                  
+                  {/* Government Services Button */}
+                  <div className="mt-6 pt-4 border-t border-white/10">
+                    <Button 
+                      onClick={goToGovServices}
+                      className="neo-button w-full group flex items-center justify-center gap-2"
+                    >
+                      Explore Government Services
+                      <CircleArrowUpIcon className="w-4 h-4 transition-transform group-hover:-translate-y-1" />
+                    </Button>
+                  </div>
                 </div>
-                
-                <div className="flex items-center justify-between">
-                  <span className="text-white/70">Access Status:</span>
-                  <span className={verified ? 'text-green-500' : verified === false ? 'text-red-500' : 'text-white/50'}>
-                    {verified === true ? 'Granted' : verified === false ? 'Denied' : 'Pending'}
-                  </span>
-                </div>
-              </div>
-              
-              {/* Government Services Button */}
-              <div className="mt-8 flex justify-center">
-                <Button 
-                  onClick={goToGovServices}
-                  className="neo-button group flex items-center gap-2"
-                >
-                  Explore Government Services
-                  <CircleArrowUpIcon className="w-4 h-4 transition-transform group-hover:-translate-y-1" />
-                </Button>
               </div>
             </div>
           </div>

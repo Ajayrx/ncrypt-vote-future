@@ -76,7 +76,7 @@ const TeamSection: React.FC = () => {
   ];
 
   return (
-    <section id="team" ref={sectionRef} className="py-24 relative overflow-hidden bg-ncrypt-dark-blue/30">
+    <section id="team" ref={sectionRef} className="py-16 relative overflow-hidden bg-ncrypt-dark-blue/30">
       {/* Background Elements */}
       <div className="absolute inset-0 grid-background opacity-20"></div>
       <div className="absolute top-1/3 -right-36 w-72 h-72 bg-ncrypt-blue/10 rounded-full filter blur-[100px]"></div>
@@ -95,8 +95,11 @@ const TeamSection: React.FC = () => {
             <h3 className="text-xl font-bold">Team Mango</h3>
             <div className="w-2 h-2 rounded-full bg-ncrypt-blue"></div>
           </div>
-          <p className="text-lg text-white/80 max-w-2xl mx-auto">
+          <p className="text-lg text-white/80 max-w-2xl mx-auto mb-4">
             We're a passionate team of new developers, and hardware engineers dedicated to creating secure digital identity solutions.
+          </p>
+          <p className="text-sm text-white/60">
+            Interested in joining our mission? Reach out to any team member above.
           </p>
         </div>
 
@@ -135,11 +138,6 @@ const TeamSection: React.FC = () => {
                 </div>
               </div>
 
-              {/* <div className="mb-4">
-                <h4 className="text-sm font-bold mb-1">Education</h4>
-                <p className="text-white/70 text-sm">Bput University, Odisha</p>
-              </div> */}
-
               <div className="mt-auto">
                 <h4 className="text-sm font-bold mb-2">Connect</h4>
                 <div className="flex justify-center space-x-4">
@@ -156,23 +154,6 @@ const TeamSection: React.FC = () => {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Join the Team */}
-        <div
-          ref={(el) => addToRefs(el, teamMembers.length + 1)}
-          className="appear-animate mt-16 max-w-xl mx-auto"
-          style={{ transitionDelay: '500ms' }}
-        >
-          <div className="cyberpunk-card p-8 text-center">
-            <h3 className="text-xl font-bold mb-4">Join Our Team</h3>
-            <p className="text-white/80 mb-6">
-              Passionate about security, privacy, and creating technology for social good? We're looking for talented individuals to join Team Mango.
-            </p>
-            <button className="neo-button">
-              Learn More
-            </button>
-          </div>
         </div>
       </div>
     </section>

@@ -126,6 +126,13 @@ const HeroSection: React.FC = () => {
     }
   };
 
+  const scrollToPrototype = () => {
+    const element = document.getElementById('submissions');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
       {/* Canvas background */}
@@ -153,13 +160,20 @@ const HeroSection: React.FC = () => {
             The future of NFC-based voter verification and government services access
           </p>
           
-          <button 
-            onClick={scrollToDemo}
-            className="neo-button animate-fade-in" 
-            style={{ animationDelay: '0.6s' }}
-          >
-            Explore Demo
-          </button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in" style={{ animationDelay: '0.6s' }}>
+            <button 
+              onClick={scrollToDemo}
+              className="neo-button"
+            >
+              Explore Demo
+            </button>
+            <button 
+              onClick={scrollToPrototype}
+              className="px-8 py-3 rounded-full bg-gradient-to-r from-ncrypt-blue/20 to-ncrypt-cyan/20 border border-ncrypt-blue/40 text-white font-medium transition-all hover:shadow-[0_0_15px_rgba(0,194,255,0.4)] hover:scale-105"
+            >
+              Prototype
+            </button>
+          </div>
         </div>
         
         {/* Animated NFC card illustration */}

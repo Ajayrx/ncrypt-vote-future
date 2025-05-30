@@ -79,12 +79,6 @@ const Navbar = () => {
               Security
             </button>
             <button 
-              onClick={() => scrollTo("submissions")}
-              className="text-white/80 hover:text-ncrypt-blue transition-colors"
-            >
-              Prototype
-            </button>
-            <button 
               onClick={() => scrollTo("team")}
               className="text-white/80 hover:text-ncrypt-blue transition-colors"
             >
@@ -102,18 +96,6 @@ const Navbar = () => {
             >
               <Github size={20} />
             </a>
-            <button 
-              onClick={() => scrollTo("submissions")}
-              className="text-sm px-4 py-2 rounded-md bg-gradient-to-r from-ncrypt-blue/20 to-ncrypt-cyan/20 border border-ncrypt-blue/40 text-white font-medium transition-all hover:shadow-[0_0_15px_rgba(0,194,255,0.4)] hover:scale-105"
-            >
-              Prototype
-            </button>
-            <button 
-              onClick={() => scrollTo("demo")}
-              className="text-sm px-4 py-2 rounded-md bg-gradient-to-r from-ncrypt-blue to-ncrypt-cyan text-white font-medium transition-all hover:shadow-[0_0_15px_rgba(0,194,255,0.4)] hover:scale-105"
-            >
-              Explore Demo
-            </button>
           </div>
           
           {/* Mobile menu button */}
